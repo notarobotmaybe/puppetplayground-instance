@@ -13,6 +13,14 @@ LABEL org.label-schema.vendor="" \
       org.label-schema.build-date="" \
       org.label-schema.schema-version=""
 
+ENV EYP_PUPPETFQDN=puppet5
+#ENV EYP_PUPPET_DNS_ALT
+ENV EYP_PUPPET_INSTANCE_MODULES=/etc/instance-puppet-modules
+ENV EYP_INTERNAL_FORGE http://localhost:80
+ENV EYP_ELK_HOST localhost
+ENV EYP_PUPPET_STARTUP_LOGDIR /logs
+ENV HOME /root
+
 RUN mkdir -p /usr/local/bin/
 
 COPY validatecsr.sh /usr/local/bin/
@@ -28,6 +36,9 @@ RUN yum install openssl -y
 #
 RUN rpm -Uvh https://yum.puppetlabs.com/puppet5/puppet5-release-el-7.noarch.rpm
 RUN yum install puppetserver -y
+
+RUN yum install epel-release -y
+RUN yum install yamllint -y
 
 #
 # puppet config
@@ -50,5 +61,6 @@ COPY logback.xml /etc/puppetlabs/puppetserver/logback.xml
 # StandardOutput=syslog
 
 
+# VOLUME ["/etc/puppet"]
 # /var/log/puppetlabs
 # /etc/puppetlabs
