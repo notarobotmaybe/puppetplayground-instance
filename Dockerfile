@@ -25,6 +25,8 @@ RUN mkdir -p /usr/local/bin/
 
 COPY validatecsr.sh /usr/local/bin/
 RUN chmod +x /usr/local/bin/validatecsr.sh
+COPY runme.sh /usr/local/bin/
+RUN chmod +x /usr/local/bin/runme.sh
 
 #
 # utils
@@ -39,6 +41,8 @@ RUN yum install puppetserver -y
 
 RUN yum install epel-release -y
 RUN yum install yamllint -y
+
+RUN /opt/puppetlabs/puppet/bin/gem install r10k
 
 #
 # puppet config
@@ -60,7 +64,11 @@ COPY logback.xml /etc/puppetlabs/puppetserver/logback.xml
 # SuccessExitStatus=143
 # StandardOutput=syslog
 
+# https://www.example42.com/2017/06/05/puppet-reports-and-metrics/
 
-# VOLUME ["/etc/puppet"]
+VOLUME ["/var/log/puppetlabs"]
+VOLUME ["/etc/puppetlabs"]
 # /var/log/puppetlabs
 # /etc/puppetlabs
+
+CMD /bin/bash /usr/local/bin/runme.sh
