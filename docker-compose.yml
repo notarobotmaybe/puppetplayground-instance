@@ -1,4 +1,4 @@
-version: "2.1"
+version: "3.2"
 services:
   privateforge-pm5:
     image: eyp/privateforge:5
@@ -7,7 +7,11 @@ services:
     expose:
       - 8080
     volumes:
-      - forge-data:/var/forge/modules
+      - type: volume
+        source: forge-data
+        target: /var/forge/modules
+        volume:
+          nocopy: false
     networks:
       pm5net:
         aliases:
@@ -16,14 +20,21 @@ services:
     image: eyp/pupppetmaster:5
     build: ./puppetmaster5
     restart: always
-    #[[remote_ip:]remote_port[-remote_port]:]port[/protocol]
-    ports: 8141:8140/tcp
+    ports:
+      - target: 8141
+        published: 8140
+        protocol: tcp
+        mode: ingress
     networks:
       pm5net:
         aliases:
           - instance_demo
     volumes:
-      - pm-conf:/etc/puppetlabs
+      - type: volume
+        source: pm-conf
+        target: /etc/puppetlabs
+        volume:
+          nocopy: false
 
 volumes:
   forge-data:
@@ -32,3 +43,4 @@ volumes:
 networks:
   pm5net:
     driver: overlay
+    attachable: true
