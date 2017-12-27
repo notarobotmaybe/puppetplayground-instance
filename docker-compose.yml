@@ -32,4 +32,4 @@ volumes:
 
 networks:
   pm5net:
-    driver: overlay
+    driver: bridge
