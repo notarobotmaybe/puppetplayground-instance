@@ -1,4 +1,4 @@
 *~
 *swp
 docker-compose.override.yml
-ssh/*
+ssh/id_*
