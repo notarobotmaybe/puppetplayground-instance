@@ -16,7 +16,7 @@ LABEL org.label-schema.vendor="" \
 ENV EYP_PUPPETFQDN=puppet5
 #ENV EYP_PUPPET_DNS_ALT
 ENV EYP_PUPPET_INSTANCE_MODULES=/etc/instance-puppet-modules
-ENV EYP_INTERNAL_FORGE http://localhost:80
+ENV EYP_INTERNAL_FORGE http://privateforge:8080
 ENV EYP_ELK_HOST localhost
 ENV EYP_PUPPET_STARTUP_LOGDIR /logs
 ENV HOME /root
@@ -53,7 +53,6 @@ COPY logback.xml /etc/puppetlabs/puppetserver/logback.xml
 # certname=puppet
 # dns_alt_names=puppet.fqdn
 
-
 # DFile=/var/run/puppetlabs/puppetserver/puppetserver.pid
 # #set default privileges to -rw-r-----
 # UMask=027
@@ -68,7 +67,7 @@ COPY logback.xml /etc/puppetlabs/puppetserver/logback.xml
 
 VOLUME ["/var/log/puppetlabs"]
 VOLUME ["/etc/puppetlabs"]
-# /var/log/puppetlabs
-# /etc/puppetlabs
+
+EXPOSE 8140
 
 CMD /bin/bash /usr/local/bin/runme.sh
