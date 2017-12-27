@@ -19,6 +19,10 @@ services:
     #[[remote_ip:]remote_port[-remote_port]:]port[/protocol]
     ports:
       - 8141:8140/tcp
+    environment:
+      - EYP_PUPPETFQDN: 'puppet5'
+      - EYP_PM_SSL_REPO: ''
+      - EYP_PM_BASE_REPO: ''
     networks:
       pm5net:
         aliases:

@@ -18,7 +18,6 @@ ENV EYP_PUPPETFQDN=puppet5
 ENV EYP_PUPPET_INSTANCE_MODULES=/etc/instance-puppet-modules
 ENV EYP_INTERNAL_FORGE http://privateforge:8080
 ENV EYP_ELK_HOST localhost
-ENV EYP_PUPPET_STARTUP_LOGDIR /logs
 ENV HOME /root
 
 RUN mkdir -p /usr/local/bin/
@@ -65,7 +64,6 @@ COPY logback.xml /etc/puppetlabs/puppetserver/logback.xml
 
 # https://www.example42.com/2017/06/05/puppet-reports-and-metrics/
 
-#VOLUME ["/var/log/puppetlabs"]
 VOLUME ["/etc/puppetlabs"]
 
 EXPOSE 8140
