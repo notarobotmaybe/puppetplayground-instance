@@ -12,7 +12,7 @@ services:
       pm5net:
         aliases:
           - privateforge
-  instance_demo-pm5:
+  master-pm5:
     image: eyp/pupppetmaster:5
     build: ./puppetmaster5
     restart: always
@@ -26,9 +26,10 @@ services:
     networks:
       pm5net:
         aliases:
-          - instance_demo
+          - master
     volumes:
       - pm-conf:/etc/puppetlabs
+      - ./ssh:/root/.ssh:ro
 
 volumes:
   forge-data:

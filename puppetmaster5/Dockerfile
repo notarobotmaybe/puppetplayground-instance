@@ -20,6 +20,9 @@ ENV EYP_INTERNAL_FORGE http://privateforge:8080
 ENV EYP_ELK_HOST localhost
 ENV HOME /root
 
+RUN mkdir /root/.ssh
+RUN chmod 0700 /root/.ssh/
+
 RUN mkdir -p /usr/local/bin/
 
 COPY validatecsr.sh /usr/local/bin/
