@@ -65,7 +65,7 @@ COPY logback.xml /etc/puppetlabs/puppetserver/logback.xml
 
 # https://www.example42.com/2017/06/05/puppet-reports-and-metrics/
 
-VOLUME ["/var/log/puppetlabs"]
+#VOLUME ["/var/log/puppetlabs"]
 VOLUME ["/etc/puppetlabs"]
 
 EXPOSE 8140

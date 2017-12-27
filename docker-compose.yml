@@ -31,11 +31,6 @@ services:
           - instance_demo
     volumes:
       - type: volume
-        source: logs
-        target: /var/log/puppetlabs
-        volume:
-          nocopy: true
-      - type: volume
         source: pm-conf
         target: /etc/puppetlabs
         volume:
