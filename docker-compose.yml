@@ -1,5 +1,18 @@
 version: "2.1"
 services:
+  elasticsearch-pm5:
+    image: eyp/elasticsearch:5
+    build: ./elasticsearch/
+    restart: always
+    expose:
+      - 9200
+    volumes:
+      - elasticsearch-data:/var/lib/elasticsearch
+      - elasticsearch-logs:/var/log/elasticsearch
+    networks:
+      pm5net:
+        aliases:
+          - elasticsearch
   privateforge-pm5:
     image: eyp/privateforge:5
     build: ./privateforge/
@@ -34,6 +47,8 @@ services:
 volumes:
   forge-data:
   pm-conf:
+  elasticsearch-data:
+  elasticsearch-logs:
 
 networks:
   pm5net:
