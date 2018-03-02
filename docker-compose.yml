@@ -13,6 +13,18 @@ services:
       pm5net:
         aliases:
           - elasticsearch
+  kibana-pm5:
+    image: eyp/kibana:5
+    build: ./kibana/
+    restart: always
+    expose:
+      - 80
+    volumes:
+      - kibana-data:/var/lib/kibana
+    networks:
+      pm5net:
+        aliases:
+          - kibana
   privateforge-pm5:
     image: eyp/privateforge:5
     build: ./privateforge/
@@ -49,6 +61,7 @@ volumes:
   pm-conf:
   elasticsearch-data:
   elasticsearch-logs:
+  kibana-data:
 
 networks:
   pm5net:

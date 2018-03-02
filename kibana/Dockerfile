@@ -28,16 +28,14 @@ RUN add-apt-repository -y ppa:webupd8team/java
 RUN apt-get update
 RUN bash -c 'yes | apt-get install curl wget oracle-java8-installer -y'
 
-COPY deb/es.deb /usr/local/src/es.deb
-RUN dpkg -i /usr/local/src/es.deb
-RUN usermod -s /bin/bash elasticsearch
+COPY deb/kibana.deb /usr/local/src/kibana.deb
+RUN dpkg -i /usr/local/src/kibana.deb
+RUN usermod -s /bin/bash kibana
 
-COPY start_es.sh /usr/local/bin/start_es.sh
-COPY elasticsearch.yml /etc/elasticsearch/elasticsearch.yml
+COPY kibana.yml /etc/kibana/kibana.yml
 
-VOLUME ["/var/lib/elasticsearch"]
-VOLUME ["/var/log/elasticsearch"]
+VOLUME ["/var/lib/kibana"]
 
-EXPOSE 9200
+EXPOSE 5601
 
-CMD /bin/bash /usr/local/bin/start_es.sh
+CMD /bin/su kibana -c '/usr/share/kibana/bin/kibana "-c /etc/kibana/kibana.yml"'
