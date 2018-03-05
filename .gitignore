@@ -4,3 +4,4 @@ docker-compose.override.yml
 ssh/id_*
 elasticsearch/deb/*
 kibana/deb/*
+logstash/deb/*
