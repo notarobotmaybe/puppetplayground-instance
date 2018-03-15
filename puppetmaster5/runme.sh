@@ -1,5 +1,38 @@
 #!/bin/bash
 
+puppet_regenerate_ca()
+{
+
+  mv /etc/puppetlabs/puppet/ssl /etc/puppetlabs/puppet/ssl.$(date +%Y%m%d%H%M%s)
+  # RuntimeError: Got 1 failure(s) while initializing: File[/etc/puppetlabs/puppet/ssl]: change from '0755' to '0771' failed: failed to set mode 0755 on /etc/puppetlabs/puppet/ssl: Operation not permitted - No message available
+  chmod 0771 /etc/puppetlabs/puppet/.repo/ssl-repo
+  ln -s /etc/puppetlabs/puppet/.repo/ssl-repo /etc/puppetlabs/puppet/ssl
+
+  # https://puppet.com/docs/puppet/5.4/ssl_regenerate_certificates.html
+  TEMP_MASTER=$(mktemp /tmp/puppetmastertmp.XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX)
+  $PUPPETBIN master --no-daemonize --verbose > $TEMP_MASTER 2>&1 &
+
+  PID_TMP_MASTER=$!
+
+  grep "Notice: Starting Puppet master" $TEMP_MASTER > /dev/null 2>&1
+  while [ $? -ne 0 ];
+  do
+    sleep 5
+    grep "Notice: Starting Puppet master" $TEMP_MASTER > /dev/null 2>&1
+  done
+
+  ps -e | awk '{ print $1 }' | grep $PID_TMP_MASTER > /dev/null 2>&1
+  while [ $? -eq 0 ];
+  do
+    kill $PID_TMP_MASTER > /dev/null 2>&1
+    sleep 1
+    kill -9 $PID_TMP_MASTER > /dev/null 2>&1
+    ps -e | awk '{ print $1 }' | grep $PID_TMP_MASTER > /dev/null 2>&1
+  done
+
+  rm $TEMP_MASTER
+}
+
 PUPPETBIN=$(which puppet 2>/dev/null)
 
 if [ -z "$PUPPETBIN" ];
@@ -55,7 +88,7 @@ then
     then
       echo "generating CA for ${EYP_PUPPETFQDN} for repo ${EYP_PM_SSL_REPO}"
       sed "s@\\bcertname[ ]*=.*\$@certname=${EYP_PUPPETFQDN}@" -i /etc/puppetlabs/puppet/puppet.conf
-      $PUPPETBIN ca generate ${EYP_PUPPETFQDN}
+      puppet_regenerate_ca
       cd /etc/puppetlabs/puppet/.repo/ssl-repo
       git add --all
       git commit -va -m 'inicialitzacio'
@@ -64,12 +97,7 @@ then
   else
     echo "generating CA for ${EYP_PUPPETFQDN} without git repo"
     sed "s@\\bcertname[ ]*=.*\$@certname=${EYP_PUPPETFQDN}@" -i /etc/puppetlabs/puppet/puppet.conf
-    $PUPPETBIN ca generate ${EYP_PUPPETFQDN}
-  fi
-  if [ ! -L /etc/puppetlabs/puppet/ssl ];
-  then
-    mv /etc/puppetlabs/puppet/ssl /etc/puppetlabs/puppet/ssl.$(date +%Y%m%d%H%M%s)
-    ln -s /etc/puppetlabs/puppet/.repo/ssl-repo /etc/puppetlabs/puppet/ssl
+    puppet_regenerate_ca
   fi
 fi
 
