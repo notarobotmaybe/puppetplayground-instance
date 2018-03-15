@@ -1,6 +1,6 @@
 version: "2.1"
 services:
-  elasticsearch-pm5:
+  elasticsearch:
     image: eyp/elasticsearch:5
     build: ./elasticsearch/
     restart: always
@@ -10,15 +10,13 @@ services:
       - elasticsearch-data:/var/lib/elasticsearch
       - elasticsearch-logs:/var/log/elasticsearch
     networks:
-      pm5net:
-        aliases:
-          - elasticsearch
+      - pm5net
     healthcheck:
       test: ["CMD", "curl", "http://localhost:9200"]
       interval: 30s
       timeout: 10s
       retries: 5
-  kibana-pm5:
+  kibana:
     image: eyp/kibana:5
     build: ./kibana/
     restart: always
@@ -30,15 +28,13 @@ services:
     volumes:
       - kibana-data:/var/lib/kibana
     networks:
-      pm5net:
-        aliases:
-          - kibana
+      - pm5net
     healthcheck:
       test: ["CMD", "curl", "http://localhost:5601"]
       interval: 30s
       timeout: 10s
       retries: 5
-  master-pm5:
+  puppetmaster:
     image: eyp/pupppetmaster:5
     build: ./puppetmaster5
     restart: always
@@ -53,9 +49,7 @@ services:
       EYP_PM_SSL_REPO: ''
       EYP_PM_CUSTOMER_REPO: ''
     networks:
-      pm5net:
-        aliases:
-          - master
+      - pm5net
     volumes:
       - ./ssh:/root/.ssh:ro
       - ./utils:/opt/utils:ro
