@@ -26,7 +26,7 @@ RUN apt-get install software-properties-common -y
 
 RUN add-apt-repository -y ppa:webupd8team/java
 RUN apt-get update
-RUN bash -c 'yes | apt-get install curl wget oracle-java8-installer net-tools iputils-ping -y'
+RUN bash -c 'yes | apt-get install curl wget oracle-java8-installer net-tools iputils-ping vim -y'
 
 COPY deb/es.deb /usr/local/src/es.deb
 RUN dpkg -i /usr/local/src/es.deb
