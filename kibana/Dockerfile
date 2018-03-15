@@ -26,7 +26,7 @@ RUN apt-get install software-properties-common -y
 
 RUN add-apt-repository -y ppa:webupd8team/java
 RUN apt-get update
-RUN bash -c 'yes | apt-get install curl wget oracle-java8-installer -y'
+RUN bash -c 'yes | apt-get install curl wget oracle-java8-installer net-tools -y'
 
 COPY deb/kibana.deb /usr/local/src/kibana.deb
 RUN dpkg -i /usr/local/src/kibana.deb

@@ -17,6 +17,8 @@ services:
     image: eyp/kibana:5
     build: ./kibana/
     restart: always
+    depends_on:
+      - elasticsearch-pm5
     expose:
       - 80
     volumes:
@@ -25,18 +27,6 @@ services:
       pm5net:
         aliases:
           - kibana
-  privateforge-pm5:
-    image: eyp/privateforge:5
-    build: ./privateforge/
-    restart: always
-    expose:
-      - 8080
-    volumes:
-      - forge-data:/var/forge/modules
-    networks:
-      pm5net:
-        aliases:
-          - privateforge
   master-pm5:
     image: eyp/pupppetmaster:5
     build: ./puppetmaster5
@@ -45,9 +35,9 @@ services:
     ports:
       - 8141:8140/tcp
     environment:
-      - EYP_PUPPETFQDN: 'puppet5'
-      - EYP_PM_SSL_REPO: ''
-      - EYP_PM_BASE_REPO: ''
+      EYP_PUPPETFQDN: 'puppet5'
+      EYP_PM_SSL_REPO: ''
+      EYP_PM_BASE_REPO: ''
     networks:
       pm5net:
         aliases:
@@ -55,9 +45,9 @@ services:
     volumes:
       - pm-conf:/etc/puppetlabs
       - ./ssh:/root/.ssh:ro
+      - ./utils:/opt/utils:ro
 
 volumes:
-  forge-data:
   pm-conf:
   elasticsearch-data:
   elasticsearch-logs:

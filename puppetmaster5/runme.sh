@@ -1,5 +1,19 @@
 #!/bin/bash
 
+PUPPETBIN=$(which puppet 2>/dev/null)
+
+if [ -z "$PUPPETBIN" ];
+then
+  if [ -e "/opt/puppetlabs/bin/puppet" ];
+  then
+    PUPPETBIN='/opt/puppetlabs/bin/puppet'
+  else
+    echo "puppet not found"
+    exit 1
+  fi
+fi
+
+
 if [ -z "$(ls -A /etc/puppetlabs)" ];
 then
   # [root@e6c03ff466a1 puppetlabs]# ls -la
@@ -41,7 +55,7 @@ then
     then
       echo "generating CA for ${EYP_PUPPETFQDN} for repo ${EYP_PM_SSL_REPO}"
       sed "s@\\bcertname[ ]*=.*\$@certname=${EYP_PUPPETFQDN}@" -i /etc/puppetlabs/puppet/puppet.conf
-      puppet ca generate ${EYP_PUPPETFQDN}
+      $PUPPETBIN ca generate ${EYP_PUPPETFQDN}
       cd /etc/puppetlabs/puppet/.repo/ssl-repo
       git add --all
       git commit -va -m 'inicialitzacio'
@@ -50,10 +64,11 @@ then
   else
     echo "generating CA for ${EYP_PUPPETFQDN} without git repo"
     sed "s@\\bcertname[ ]*=.*\$@certname=${EYP_PUPPETFQDN}@" -i /etc/puppetlabs/puppet/puppet.conf
-    puppet ca generate ${EYP_PUPPETFQDN}
+    $PUPPETBIN ca generate ${EYP_PUPPETFQDN}
   fi
   if [ ! -L /etc/puppetlabs/puppet/ssl ];
   then
+    mv /etc/puppetlabs/puppet/ssl /etc/puppetlabs/puppet/ssl.$(date +%Y%m%d%H%M%s)
     ln -s /etc/puppetlabs/puppet/.repo/ssl-repo /etc/puppetlabs/puppet/ssl
   fi
 fi

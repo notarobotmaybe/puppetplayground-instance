@@ -16,8 +16,7 @@ LABEL org.label-schema.vendor="" \
 ENV EYP_PUPPETFQDN=puppet5
 #ENV EYP_PUPPET_DNS_ALT
 ENV EYP_PUPPET_INSTANCE_MODULES=/etc/instance-puppet-modules
-ENV EYP_INTERNAL_FORGE http://privateforge:8080
-ENV EYP_ELK_HOST localhost
+ENV EYP_ELK_HOST elasticsearch
 ENV HOME /root
 
 RUN mkdir /root/.ssh
