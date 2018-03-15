@@ -26,13 +26,18 @@ services:
       elasticsearch-pm5:
         condition: service_healthy
     expose:
-      - 80
+      - 5601
     volumes:
       - kibana-data:/var/lib/kibana
     networks:
       pm5net:
         aliases:
           - kibana
+    healthcheck:
+      test: ["CMD", "curl", "http://localhost:5601"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
   master-pm5:
     image: eyp/pupppetmaster:5
     build: ./puppetmaster5
