@@ -124,7 +124,22 @@ fi
 
 cd /
 
-#ps auxf | grep puppetserver | grep java | wc -l
+# r10ke- http://terrarum.net/blog/puppet-infrastructure-with-r10k.html
+
+if [ ! -z "${EYP_PM_CUSTOMER_REPO}" ];
+then
+  cat <<EOF > /etc/r10k.yaml
+---
+:cachedir: /var/cache/r10k
+:sources:
+  :local:
+    remote: ${EYP_PM_CUSTOMER_REPO}
+    basedir: /etc/puppetlabs/code/environments
+EOF
+  r10k deploy environment -p
+fi
+
+# ps auxf | grep puppetserver | grep java | wc -l
 if [ "$(ps auxf | grep puppetserver | grep java | wc -l)" -ne 1 ];
 then
   /opt/puppetlabs/server/apps/puppetserver/bin/puppetserver foreground

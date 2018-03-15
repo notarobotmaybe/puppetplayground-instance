@@ -51,13 +51,12 @@ services:
     environment:
       EYP_PUPPETFQDN: 'puppet5'
       EYP_PM_SSL_REPO: ''
-      EYP_PM_BASE_REPO: ''
+      EYP_PM_CUSTOMER_REPO: ''
     networks:
       pm5net:
         aliases:
           - master
     volumes:
-      - pm-conf:/etc/puppetlabs
       - ./ssh:/root/.ssh:ro
       - ./utils:/opt/utils:ro
     healthcheck:
@@ -67,7 +66,6 @@ services:
       retries: 10
 
 volumes:
-  pm-conf:
   elasticsearch-data:
   elasticsearch-logs:
   kibana-data:

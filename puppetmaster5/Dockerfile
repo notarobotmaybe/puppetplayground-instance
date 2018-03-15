@@ -28,6 +28,8 @@ COPY validatecsr.sh /usr/local/bin/
 RUN chmod +x /usr/local/bin/validatecsr.sh
 COPY runme.sh /usr/local/bin/
 RUN chmod +x /usr/local/bin/runme.sh
+COPY deploy.sh /usr/local/bin/
+RUN chmod +x /usr/local/bin/deploy.sh
 
 #
 # utils
@@ -65,8 +67,6 @@ COPY logback.xml /etc/puppetlabs/puppetserver/logback.xml
 # StandardOutput=syslog
 
 # https://www.example42.com/2017/06/05/puppet-reports-and-metrics/
-
-VOLUME ["/etc/puppetlabs"]
 
 EXPOSE 8140
 
