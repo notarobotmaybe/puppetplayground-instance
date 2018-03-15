@@ -13,12 +13,18 @@ services:
       pm5net:
         aliases:
           - elasticsearch
+    healthcheck:
+      test: ["CMD", "curl", "http://localhost:9200"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
   kibana-pm5:
     image: eyp/kibana:5
     build: ./kibana/
     restart: always
     depends_on:
-      - elasticsearch-pm5
+      elasticsearch-pm5:
+        condition: service_healthy
     expose:
       - 80
     volumes:
