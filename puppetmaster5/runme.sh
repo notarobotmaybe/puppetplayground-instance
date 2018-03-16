@@ -46,6 +46,18 @@ then
   fi
 fi
 
+R10KBIN=$(which r10k 2>/dev/null)
+if [ -z "$R10KBIN" ];
+then
+  if [ -e "/opt/puppetlabs/bin/r10k" ];
+  then
+    R10KBIN='/opt/puppetlabs/puppet/bin/r10k'
+  else
+    echo "r10k not found"
+    exit 1
+  fi
+fi
+
 
 if [ -z "$(ls -A /etc/puppetlabs)" ];
 then
@@ -124,7 +136,7 @@ fi
 
 cd /
 
-# r10ke- http://terrarum.net/blog/puppet-infrastructure-with-r10k.html
+# r10k - http://terrarum.net/blog/puppet-infrastructure-with-r10k.html
 
 if [ ! -z "${EYP_PM_CUSTOMER_REPO}" ];
 then
@@ -136,7 +148,7 @@ then
     remote: ${EYP_PM_CUSTOMER_REPO}
     basedir: /etc/puppetlabs/code/environments
 EOF
-  r10k deploy environment -p
+  $R10KBIN deploy environment -p
 fi
 
 # ps auxf | grep puppetserver | grep java | wc -l

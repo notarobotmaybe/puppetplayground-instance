@@ -21,7 +21,7 @@ services:
     build: ./kibana/
     restart: always
     depends_on:
-      elasticsearch-pm5:
+      elasticsearch:
         condition: service_healthy
     expose:
       - 5601
@@ -39,7 +39,7 @@ services:
     build: ./puppetmaster5
     restart: always
     depends_on:
-      elasticsearch-pm5:
+      elasticsearch:
         condition: service_healthy
     #[[remote_ip:]remote_port[-remote_port]:]port[/protocol]
     ports:
