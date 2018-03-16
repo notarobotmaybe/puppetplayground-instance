@@ -49,7 +49,7 @@ fi
 R10KBIN=$(which r10k 2>/dev/null)
 if [ -z "$R10KBIN" ];
 then
-  if [ -e "/opt/puppetlabs/bin/r10k" ];
+  if [ -e "/opt/puppetlabs/puppet/bin/r10k" ];
   then
     R10KBIN='/opt/puppetlabs/puppet/bin/r10k'
   else
@@ -140,7 +140,8 @@ cd /
 
 if [ ! -z "${EYP_PM_CUSTOMER_REPO}" ];
 then
-  cat <<EOF > /etc/r10k.yaml
+  mkdir -p /etc/puppetlabs/r10k/
+  cat <<EOF > /etc/puppetlabs/r10k/r10k.yaml
 ---
 :cachedir: /var/cache/r10k
 :sources:

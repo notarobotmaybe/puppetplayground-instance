@@ -34,7 +34,7 @@ RUN chmod +x /usr/local/bin/deploy.sh
 #
 # utils
 #
-RUN yum install openssl -y
+RUN yum install openssl git -y
 
 #
 # puppet install
@@ -67,6 +67,11 @@ COPY logback.xml /etc/puppetlabs/puppetserver/logback.xml
 # StandardOutput=syslog
 
 # https://www.example42.com/2017/06/05/puppet-reports-and-metrics/
+
+# git clone options
+RUN echo "UserKnownHostsFile=/dev/null" >> /etc/ssh/ssh_config
+RUN echo "StrictHostKeyChecking=no" >> /etc/ssh/ssh_config
+
 
 EXPOSE 8140
 
