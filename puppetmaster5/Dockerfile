@@ -49,13 +49,18 @@ RUN yum install yamllint -y
 RUN /opt/puppetlabs/puppet/bin/gem install r10k
 
 # puppetdb support
-RUN yum install puppetdb-termini -y
+RUN yum install puppetdb-terminus -y
 
 #
 # puppet config
 #
 COPY puppet.conf /etc/puppetlabs/puppet/puppet.conf
 COPY logback.xml /etc/puppetlabs/puppetserver/logback.xml
+
+#
+# puppetDB
+#
+COPY puppetdb.conf /etc/puppetlabs/puppet/puppetdb.conf
 
 # certname=puppet
 # dns_alt_names=puppet.fqdn

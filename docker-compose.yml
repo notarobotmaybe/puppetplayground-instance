@@ -1,36 +1,17 @@
 version: "2.1"
 services:
-  elasticsearch:
-    image: eyp/elasticsearch:5
-    build: ./elasticsearch/
+  puppetdb:
+    image: eyp/puppetdb:5
+    build: ./puppetdb/
     restart: always
     expose:
       - 9200
     volumes:
-      - elasticsearch-data:/var/lib/elasticsearch
-      - elasticsearch-logs:/var/log/elasticsearch
+      - puppetdb-data:/tmp/puppetdb
     networks:
       - pm5net
     healthcheck:
       test: ["CMD", "curl", "http://localhost:9200"]
-      interval: 30s
-      timeout: 10s
-      retries: 5
-  kibana:
-    image: eyp/kibana:5
-    build: ./kibana/
-    restart: always
-    depends_on:
-      elasticsearch:
-        condition: service_healthy
-    expose:
-      - 5601
-    volumes:
-      - kibana-data:/var/lib/kibana
-    networks:
-      - pm5net
-    healthcheck:
-      test: ["CMD", "curl", "http://localhost:5601"]
       interval: 30s
       timeout: 10s
       retries: 5
@@ -39,7 +20,7 @@ services:
     build: ./puppetmaster5
     restart: always
     depends_on:
-      elasticsearch:
+      puppetdb:
         condition: service_healthy
     #[[remote_ip:]remote_port[-remote_port]:]port[/protocol]
     ports:
@@ -60,9 +41,7 @@ services:
       retries: 10
 
 volumes:
-  elasticsearch-data:
-  elasticsearch-logs:
-  kibana-data:
+  puppetdb-data:
 
 networks:
   pm5net:

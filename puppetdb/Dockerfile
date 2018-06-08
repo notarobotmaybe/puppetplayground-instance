@@ -19,6 +19,7 @@ ENV EYP_PUPPETFQDN=puppet5
 ENV EYP_PUPPET_INSTANCE_MODULES=/etc/instance-puppet-modules
 ENV EYP_ELK_HOST elasticsearch
 ENV HOME /root
+ENV PATH /usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin:/opt/puppetlabs/bin:/opt/puppetlabs/puppet/bin:/opt/puppet-masterless:/root/bin
 
 RUN mkdir /root/.ssh
 RUN chmod 0700 /root/.ssh/
@@ -36,7 +37,7 @@ RUN chmod +x /usr/local/bin/deploy.sh
 #
 # utils
 #
-RUN yum install openssl git -y
+RUN yum install openssl git perl-TermReadKey.x86_64 -y
 RUN yum install epel-release -y
 
 #
@@ -46,17 +47,29 @@ RUN mkdir -p /opt
 RUN bash -c 'cd /opt; git clone https://github.com/jordiprats/puppet-masterless'
 
 #
+# puppet repo & agent & r10k
+#
+
+RUN rpm -Uvh https://yum.puppetlabs.com/puppet5/puppet5-release-el-7.noarch.rpm
+RUN yum install puppet-agent -y
+
+RUN /opt/puppetlabs/puppet/bin/gem install r10k
+
+#
 # postgres install
 #
 
 # https://github.com/NTTCom-MS/eyp-postgresql
 RUN /opt/puppet-masterless/localpuppetmaster.sh -d /tmp/postgres -r https://github.com/NTTCom-MS/eyp-postgresql
 COPY postgres.pp /usr/local/src/postgres.pp
+
+#
+# postgres install
+#
+
 RUN /opt/puppet-masterless/localpuppetmaster.sh -d /tmp/postgres -s /usr/local/src/postgres.pp
 
 #
 # puppetDB install
 #
-RUN rpm -Uvh https://yum.puppetlabs.com/puppet5/puppet5-release-el-7.noarch.rpm
-RUN yum install puppet-agent -y
-RUN yum install puppetdb -y
+RUN yum install puppetdb puppetdb-terminus -y
