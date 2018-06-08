@@ -27,13 +27,6 @@ RUN chmod 0700 /root/.ssh/
 RUN mkdir -p /usr/local/bin/
 RUN mkdir -p /usr/local/src
 
-COPY validatecsr.sh /usr/local/bin/
-RUN chmod +x /usr/local/bin/validatecsr.sh
-COPY runme.sh /usr/local/bin/
-RUN chmod +x /usr/local/bin/runme.sh
-COPY deploy.sh /usr/local/bin/
-RUN chmod +x /usr/local/bin/deploy.sh
-
 #
 # utils
 #
