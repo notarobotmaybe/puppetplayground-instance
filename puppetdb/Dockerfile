@@ -30,7 +30,7 @@ RUN mkdir -p /usr/local/src
 #
 # utils
 #
-RUN yum install openssl git perl-TermReadKey.x86_64 -y
+RUN yum install openssl git -y
 RUN yum install epel-release -y
 
 #
