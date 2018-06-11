@@ -10,6 +10,8 @@ services:
       - puppetdb-data:/tmp/puppetdb
     networks:
       - pm5net
+    environment:
+      EYP_PUPPETFQDN: 'puppet5'
     healthcheck:
       test: ["CMD", "curl", "http://localhost:9200"]
       interval: 30s

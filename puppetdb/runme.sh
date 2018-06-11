@@ -40,3 +40,7 @@ if [ -z "$(psql -U postgres -tc "SELECT datname FROM pg_database WHERE datname='
 then
   psql -U postgres -tc "CREATE DATABASE puppetdb OWNER puppetdb"
 fi
+
+sed "s/^server.*/server = ${EYP_PUPPETFQDN}/g" -i /etc/puppetlabs/puppet/puppetdb.conf
+
+sed "s/X_PUPPETDB_PASSWORD_X/${EYP_POSTGRES_PUPPETDB_PASSWORD}/g" -i /etc/puppetlabs/puppetdb/conf.d/database.ini
