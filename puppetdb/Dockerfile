@@ -26,6 +26,7 @@ RUN chmod 0700 /root/.ssh/
 
 RUN mkdir -p /usr/local/bin/
 RUN mkdir -p /usr/local/src
+COPY runme.sh /usr/local/src/runme.sh
 
 #
 # utils
