@@ -71,3 +71,4 @@ RUN yum install puppetdb puppetdb-terminus -y
 COPY puppetdb.conf /etc/puppetlabs/puppet/puppetdb.conf
 COPY routes.yaml /etc/puppetlabs/puppet/routes.yaml
 COPY database.ini /etc/puppetlabs/puppetdb/conf.d/database.ini
+COPY jetty.ini /etc/puppetlabs/puppet/jetty.ini
