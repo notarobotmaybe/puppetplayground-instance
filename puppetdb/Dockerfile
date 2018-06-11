@@ -73,3 +73,8 @@ COPY database.ini /etc/puppetlabs/puppetdb/conf.d/database.ini
 COPY jetty.ini /etc/puppetlabs/puppetdb/conf.d/jetty.ini
 
 COPY routes.yaml /etc/puppetlabs/puppet/routes.yaml
+
+
+EXPOSE 8080
+
+CMD /bin/bash /usr/local/bin/runme.sh
