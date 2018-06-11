@@ -50,3 +50,9 @@ sed "s/X_PUPPETDB_PASSWORD_X/${EYP_POSTGRES_PUPPETDB_PASSWORD}/g" -i /etc/puppet
 #
 
 /opt/puppetlabs/server/apps/puppetdb/bin/puppetdb start
+
+
+while [ $(ps -fea | grep java | grep puppetdb | wc -l) -ne 0 ];
+do
+  sleep 10;
+done
