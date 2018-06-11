@@ -68,3 +68,4 @@ RUN /opt/puppet-masterless/localpuppetmaster.sh -d /tmp/postgres -s /usr/local/s
 # puppetDB install
 #
 RUN yum install puppetdb puppetdb-terminus -y
+COPY puppetdb.conf /etc/puppetlabs/puppet/puppetdb.conf

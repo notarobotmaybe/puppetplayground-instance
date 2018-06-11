@@ -57,11 +57,6 @@ RUN yum install puppetdb-terminus -y
 COPY puppet.conf /etc/puppetlabs/puppet/puppet.conf
 COPY logback.xml /etc/puppetlabs/puppetserver/logback.xml
 
-#
-# puppetDB
-#
-COPY puppetdb.conf /etc/puppetlabs/puppet/puppetdb.conf
-
 # certname=puppet
 # dns_alt_names=puppet.fqdn
 
@@ -80,7 +75,6 @@ COPY puppetdb.conf /etc/puppetlabs/puppet/puppetdb.conf
 # git clone options
 RUN echo "UserKnownHostsFile=/dev/null" >> /etc/ssh/ssh_config
 RUN echo "StrictHostKeyChecking=no" >> /etc/ssh/ssh_config
-
 
 EXPOSE 8140
 
