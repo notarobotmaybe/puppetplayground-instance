@@ -5,7 +5,7 @@ services:
     build: ./puppetdb/
     restart: always
     expose:
-      - 9200
+      - 8080
     volumes:
       - puppetdb-data:/tmp/puppetdb
     networks:
