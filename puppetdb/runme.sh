@@ -36,7 +36,7 @@ fi
 #   owner => 'puppetdb',
 # }
 
-if [ -z "$(psql -U postgres -tc "SELECT datname FROM pg_database WHERE datname='puppetdb'" ];
+if [ -z "$(psql -U postgres -tc "SELECT datname FROM pg_database WHERE datname='puppetdb'")" ];
 then
   psql -U postgres -tc "CREATE DATABASE puppetdb OWNER puppetdb"
 fi
