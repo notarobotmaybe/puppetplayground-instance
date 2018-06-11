@@ -27,11 +27,10 @@ done
 # postgresql::role { 'puppetdb':
 #   password => 'X_PUPPETDB_PASSWORD_X',
 # }
-if [ -z "$(psql -U postgres -tc "SELECT rolname FROM pg_roles WHERE rolname='puppetdb'")"];
+if [ -z "$(psql -U postgres -tc "SELECT rolname FROM pg_roles WHERE rolname='puppetdb'")" ];
 then
-  psql -U postgres -tc "CREATE ROLE puppetdb LOGIN NOSUPERUSER ENCRYPTED PASSWORD '${EYP_POSTGRES_PUPPETDB_PASSWORD}';",
+  psql -U postgres -tc "CREATE ROLE puppetdb LOGIN NOSUPERUSER ENCRYPTED PASSWORD '${EYP_POSTGRES_PUPPETDB_PASSWORD}';"
 fi
-
 
 # postgresql::db { 'puppetdb':
 #   owner => 'puppetdb',
