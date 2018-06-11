@@ -44,3 +44,9 @@ fi
 sed "s/^server.*/server = ${EYP_PUPPETFQDN}/g" -i /etc/puppetlabs/puppet/puppetdb.conf
 
 sed "s/X_PUPPETDB_PASSWORD_X/${EYP_POSTGRES_PUPPETDB_PASSWORD}/g" -i /etc/puppetlabs/puppetdb/conf.d/database.ini
+
+#
+# puppetDB start
+#
+
+/opt/puppetlabs/server/apps/puppetdb/bin/puppetdb start
