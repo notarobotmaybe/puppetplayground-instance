@@ -6,3 +6,9 @@ class { 'postgresql':
   version             => '9.6',
   manage_service      => false,
 }
+
+postgresql::hba_rule { 'IPv4/any puppetdb':
+  user     => 'puppetdb',
+  database => 'puppetdb',
+  address  => '0.0.0.0/0',
+}
