@@ -27,7 +27,6 @@ services:
     depends_on:
       puppetdb:
         condition: service_healthy
-    #[[remote_ip:]remote_port[-remote_port]:]port[/protocol]
     ports:
       - 8141:8140/tcp
     environment:
