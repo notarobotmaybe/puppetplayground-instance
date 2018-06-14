@@ -41,12 +41,29 @@ then
   psql -U postgres -tc "CREATE DATABASE puppetdb OWNER puppetdb"
 fi
 
-sed "s/^server.*/server = ${EYP_PUPPETFQDN}/g" -i /etc/puppetlabs/puppet/puppetdb.conf
-
 sed "s/X_PUPPETDB_PASSWORD_X/${EYP_POSTGRES_PUPPETDB_PASSWORD}/g" -i /etc/puppetlabs/puppetdb/conf.d/database.ini
+
+while [ ! -f "/etc/puppetlabs/puppet/ssl/certs/puppetdb.pm5.docker.pem" ];
+do
+  puppet agent --server puppet5 --masterport 8140 --certname puppetdb.pm5.docker --test
+  sleep 5s
+done
+
+FQDN=$(puppet facts --render-as json | python -mjson.tool | grep fqdn | cut -f2 -d: | cut -f2 -d\")
+
+ln -s /etc/puppetlabs/puppet/ssl/private_keys/puppetdb.pm5.docker.pem /etc/puppetlabs/puppet/ssl/private_keys/${FQDN}.pem
+ln -s /etc/puppetlabs/puppet/ssl/certs/puppetdb.pm5.docker.pem /etc/puppetlabs/puppet/ssl/certs/${FQDN}.pem
+
+puppetdb ssl-setup -f
 
 #
 # puppetDB start
 #
 
 /opt/puppetlabs/server/apps/puppetdb/bin/puppetdb start
+
+
+while [ $(ps -fea | grep java | grep puppetdb | wc -l) -ne 0 ];
+do
+  sleep 10;
+done

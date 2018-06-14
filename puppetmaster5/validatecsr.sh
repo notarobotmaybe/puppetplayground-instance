@@ -7,6 +7,8 @@
 # exit with a status of 0 if the cert should be autosigned
 # and non-zero if the cert should not be autosigned.
 
+cat <&0 > /dev/null
+
 if [ -z "$1" ];
 then
   echo "error - no CN"

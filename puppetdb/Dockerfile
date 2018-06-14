@@ -15,9 +15,6 @@ LABEL org.label-schema.vendor="" \
 
 ENV EYP_POSTGRES_PUPPETDB_PASSWORD 769d147d725f3a3d356f99eda68ed5cd
 ENV EYP_PUPPETFQDN=puppet5
-#ENV EYP_PUPPET_DNS_ALT
-ENV EYP_PUPPET_INSTANCE_MODULES=/etc/instance-puppet-modules
-ENV EYP_ELK_HOST elasticsearch
 ENV HOME /root
 ENV PATH /usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin:/opt/puppetlabs/bin:/opt/puppetlabs/puppet/bin:/opt/puppet-masterless:/root/bin
 
@@ -68,8 +65,10 @@ RUN /opt/puppet-masterless/localpuppetmaster.sh -d /tmp/postgres -s /usr/local/s
 # puppetDB install
 #
 RUN yum install puppetdb puppetdb-terminus -y
-COPY puppetdb.conf /etc/puppetlabs/puppet/puppetdb.conf
 COPY database.ini /etc/puppetlabs/puppetdb/conf.d/database.ini
 COPY jetty.ini /etc/puppetlabs/puppetdb/conf.d/jetty.ini
 
-COPY routes.yaml /etc/puppetlabs/puppet/routes.yaml
+
+EXPOSE 8080
+
+CMD /bin/bash /usr/local/bin/runme.sh

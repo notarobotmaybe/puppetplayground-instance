@@ -4,16 +4,20 @@ services:
     image: eyp/puppetdb:5
     build: ./puppetdb/
     restart: always
-    expose:
-      - 9200
+    ports:
+      - 9141:8080/tcp
     volumes:
       - puppetdb-data:/tmp/puppetdb
     networks:
-      - pm5net
+      pm5net:
+        aliases:
+          - puppetdb
+          - puppetdb.pm5.docker
     environment:
       EYP_PUPPETFQDN: 'puppet5'
+      EYP_PUPPETDB_EXTERNAL_PORT: '9141'
     healthcheck:
-      test: ["CMD", "curl", "http://localhost:9200"]
+      test: ["CMD", "/bin/true"]
       interval: 30s
       timeout: 10s
       retries: 5
@@ -24,7 +28,6 @@ services:
     depends_on:
       puppetdb:
         condition: service_healthy
-    #[[remote_ip:]remote_port[-remote_port]:]port[/protocol]
     ports:
       - 8141:8140/tcp
     environment:
@@ -32,7 +35,10 @@ services:
       EYP_PM_SSL_REPO: ''
       EYP_PM_CUSTOMER_REPO: ''
     networks:
-      - pm5net
+      pm5net:
+        aliases:
+          - puppet5
+          - puppet5.pm5.docker
     volumes:
       - ./ssh:/root/.ssh:ro
       - ./utils:/opt/utils:ro
