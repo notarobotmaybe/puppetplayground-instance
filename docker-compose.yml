@@ -13,7 +13,7 @@ services:
     environment:
       EYP_PUPPETFQDN: 'puppet5'
     healthcheck:
-      test: ["CMD", "curl", "http://localhost:8080"]
+      test: ["CMD", "curl", "http://puppetdb:8080"]
       interval: 30s
       timeout: 10s
       retries: 5
