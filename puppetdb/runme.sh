@@ -49,6 +49,11 @@ do
   sleep 5s
 done
 
+FQDN=$(puppet facts --render-as json | python -mjson.tool | grep fqdn | cut -f2 -d: | cut -f2 -d\")
+
+ln -s /etc/puppetlabs/puppet/ssl/private_keys/puppetdb.pm5.docker.pem /etc/puppetlabs/puppet/ssl/private_keys/${FQDN}.pem
+ln -s /etc/puppetlabs/puppet/ssl/certs/puppetdb.pm5.docker.pem /etc/puppetlabs/puppet/ssl/certs/${FQDN}.pem
+
 puppetdb ssl-setup -f
 
 #
