@@ -9,7 +9,9 @@ services:
     volumes:
       - puppetdb-data:/tmp/puppetdb
     networks:
-      - pm5net
+      pm5net:
+        aliases:
+          - puppetdb
     environment:
       EYP_PUPPETFQDN: 'puppet5'
       EYP_PUPPETDB_EXTERNAL_PORT: '9141'
@@ -33,7 +35,9 @@ services:
       EYP_PM_SSL_REPO: ''
       EYP_PM_CUSTOMER_REPO: ''
     networks:
-      - pm5net
+      pm5net:
+        aliases:
+          - puppet5
     volumes:
       - ./ssh:/root/.ssh:ro
       - ./utils:/opt/utils:ro
@@ -42,8 +46,6 @@ services:
       interval: 60s
       timeout: 10s
       retries: 10
-    links:
-      - puppetdb
 
 volumes:
   puppetdb-data:
