@@ -43,6 +43,14 @@ fi
 
 sed "s/X_PUPPETDB_PASSWORD_X/${EYP_POSTGRES_PUPPETDB_PASSWORD}/g" -i /etc/puppetlabs/puppetdb/conf.d/database.ini
 
+while [ ! -f "/etc/puppetlabs/puppet/ssl/certs/puppetdb.pm5.docker.pem" ];
+do
+  puppet agent --server puppet5 --masterport 8140 --certname puppetdb.pm5.docker --test
+  sleep 5s
+done
+
+puppetdb ssl-setup -f
+
 #
 # puppetDB start
 #
