@@ -152,6 +152,9 @@ EOF
   $R10KBIN deploy environment -p
 fi
 
+sed "s/^server.*/server = ${EYP_PUPPETFQDN}/g" -i /etc/puppetlabs/puppet/puppetdb.conf
+sed "s/^port.*/port = ${EYP_PUPPETDB_EXTERNAL_PORT}/g" -i /etc/puppetlabs/puppet/puppetdb.conf
+
 # ps auxf | grep puppetserver | grep java | wc -l
 if [ "$(ps auxf | grep puppetserver | grep java | wc -l)" -ne 1 ];
 then

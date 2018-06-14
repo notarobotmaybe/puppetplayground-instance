@@ -4,14 +4,15 @@ services:
     image: eyp/puppetdb:5
     build: ./puppetdb/
     restart: always
-    expose:
-      - 8080
+    ports:
+      - 9141:8080/tcp
     volumes:
       - puppetdb-data:/tmp/puppetdb
     networks:
       - pm5net
     environment:
       EYP_PUPPETFQDN: 'puppet5'
+      EYP_PUPPETDB_EXTERNAL_PORT: '9141'
     healthcheck:
       test: ["CMD", "/bin/true"]
       interval: 30s

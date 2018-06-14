@@ -14,9 +14,6 @@ LABEL org.label-schema.vendor="" \
       org.label-schema.schema-version=""
 
 ENV EYP_PUPPETFQDN=puppet5
-#ENV EYP_PUPPET_DNS_ALT
-ENV EYP_PUPPET_INSTANCE_MODULES=/etc/instance-puppet-modules
-ENV EYP_ELK_HOST elasticsearch
 ENV HOME /root
 
 RUN mkdir /root/.ssh
@@ -75,6 +72,9 @@ COPY logback.xml /etc/puppetlabs/puppetserver/logback.xml
 # git clone options
 RUN echo "UserKnownHostsFile=/dev/null" >> /etc/ssh/ssh_config
 RUN echo "StrictHostKeyChecking=no" >> /etc/ssh/ssh_config
+
+COPY puppetdb.conf /etc/puppetlabs/puppet/puppetdb.conf
+COPY routes.yaml /etc/puppetlabs/puppet/routes.yaml
 
 EXPOSE 8140
 
