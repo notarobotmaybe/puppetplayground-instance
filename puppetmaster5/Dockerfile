@@ -28,6 +28,8 @@ COPY runme.sh /usr/local/bin/
 RUN chmod +x /usr/local/bin/runme.sh
 COPY deploy.sh /usr/local/bin/
 RUN chmod +x /usr/local/bin/deploy.sh
+COPY updatemodules.sh /usr/local/bin/
+RUN chmod +x /usr/local/bin/updatemodules.sh
 
 #
 # utils
