@@ -46,6 +46,7 @@ sed "s/X_PUPPETDB_PASSWORD_X/${EYP_POSTGRES_PUPPETDB_PASSWORD}/g" -i /etc/puppet
 while [ ! -f "/etc/puppetlabs/puppet/ssl/certs/puppetdb.pm5.docker.pem" ];
 do
   puppet agent --server puppet5 --masterport 8140 --certname puppetdb.pm5.docker --test
+  sleep 5
 done
 
 FQDN=$(puppet facts --render-as json | python -mjson.tool | grep fqdn | cut -f2 -d: | cut -f2 -d\" | head -n1)
