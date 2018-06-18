@@ -5,7 +5,7 @@ services:
     build: ./puppetdb/
     restart: always
     ports:
-      - 9141:8080/tcp
+      - 9141:8081/tcp
     volumes:
       - puppetdb-data:/tmp/puppetdb
     networks:

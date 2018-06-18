@@ -149,7 +149,7 @@ then
     remote: ${EYP_PM_CUSTOMER_REPO}
     basedir: /etc/puppetlabs/code/environments
 EOF
-  $R10KBIN deploy environment -p
+  /usr/local/bin/updatemodules.sh
 fi
 
 # ps auxf | grep puppetserver | grep java | wc -l
