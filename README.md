@@ -1,5 +1,20 @@
 # docker-puppetmaster5
 
+## puppet-bolt
+
+You need **eyp-eyplib**:
+
+```
+[root@31b68e9fbe3f ~]# bolt plan run eyplib::pdbtest
+[
+  {
+    "certname": "centos7.vm"
+  }
+]
+[root@31b68e9fbe3f ~]#
+```
+
+
 ## testing puppetdb API
 
 ```
