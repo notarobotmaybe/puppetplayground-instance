@@ -30,6 +30,7 @@ COPY deploy.sh /usr/local/bin/
 RUN chmod +x /usr/local/bin/deploy.sh
 COPY updatemodules.sh /usr/local/bin/
 RUN chmod +x /usr/local/bin/updatemodules.sh
+COPY profiled_bolt.sh /etc/profile.d/bolt.sh
 
 #
 # utils
@@ -77,6 +78,17 @@ RUN echo "StrictHostKeyChecking=no" >> /etc/ssh/ssh_config
 
 COPY puppetdb.conf /etc/puppetlabs/puppet/puppetdb.conf
 COPY routes.yaml /etc/puppetlabs/puppet/routes.yaml
+
+#
+# puppet-bolt via gem
+#
+
+RUN yum install -y make gcc ruby-devel
+RUN /opt/puppetlabs/puppet/bin/gem install bolt
+
+RUN mkdir -p /root/.bolt
+RUN mkdir -p /root/.puppetlabs/
+COPY bolt.yml /root/.puppetlabs/
 
 EXPOSE 8140
 
