@@ -45,6 +45,7 @@ r10k_check()
 puppet_check
 r10k_check
 
+echo "Deploying puppet modules"
 $R10KBIN deploy environment -p
 
 for ENV in /etc/puppetlabs/code/environments/*;

@@ -1,0 +1,19 @@
+---
+modulepath: "/etc/puppetlabs/code/environments/production/modules/"
+concurrency: 10
+format: human
+log:
+  console:
+    level: warn
+  ~/.bolt/debug.log:
+    level: debug
+    append: false
+ssh:
+  host-key-check: false
+  private-key: ~/.ssh/id_rsa
+puppetdb:
+  server_urls: ["https://puppetdb.pm5.docker:8081"]
+  cacert: /etc/puppetlabs/puppet/ssl/ca/ca_crt.pem
+  # FOSS PuppetDB
+  cert: /etc/puppetlabs/puppet/ssl/certs/puppet5.pem
+  key: /etc/puppetlabs/puppet/ssl/private_keys/puppet5.pem
