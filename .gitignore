@@ -2,7 +2,7 @@
 *swp
 docker-compose.override.yml
 ssh/id_*
-utils/puppet-masterless$
+utils/puppet-masterless/
 elasticsearch/deb/*
 kibana/deb/*
 logstash/deb/*
