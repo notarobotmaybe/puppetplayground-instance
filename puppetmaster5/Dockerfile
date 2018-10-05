@@ -84,7 +84,8 @@ COPY routes.yaml /etc/puppetlabs/puppet/routes.yaml
 #
 
 RUN yum install -y make gcc ruby-devel
-RUN /opt/puppetlabs/puppet/bin/gem install bolt
+# canvi desde gem cap a paquet
+RUN yum install puppet-bolt -y
 
 RUN mkdir -p /root/.bolt
 RUN mkdir -p /root/.puppetlabs/

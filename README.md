@@ -1,5 +1,21 @@
 # docker-puppetmaster5
 
+override example:
+
+```yaml
+version: "2.1"
+services:
+  puppetdb:
+    environment:
+      EYP_PUPPETFQDN: 'puppet5.systemadmin.es'
+      EYP_PUPPETDB_EXTERNAL_PORT: '9999'
+  puppetmaster:
+    environment:
+      EYP_PUPPETFQDN: 'puppet5.cm.nttcom.ms'
+      EYP_PM_SSL_REPO: 'ssh://git@demo.repo.systemadmin.es/puppet/ssl.git'
+      EYP_PM_CUSTOMER_REPO: 'ssh://git@demo.repo.systemadmin.es/config/demo.git'
+```
+
 ## puppet-bolt
 
 You need **eyp-eyplib**:
