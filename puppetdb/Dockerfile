@@ -4,14 +4,14 @@ MAINTAINER Jordi Prats
 # TODO
 # http://label-schema.org/rc1/#build-time-labels
 LABEL org.label-schema.vendor="" \
-      org.label-schema.url="" \
-      org.label-schema.name="" \
+      org.label-schema.url="https://github.com/NTTCom-MS" \
+      org.label-schema.name="puppetdb" \
       org.label-schema.license="" \
-      org.label-schema.version=""\
-      org.label-schema.vcs-url="" \
+      org.label-schema.version="5.5.6"\
+      org.label-schema.vcs-url="https://github.com/NTTCom-MS/docker-puppetmaster5" \
       org.label-schema.vcs-ref="" \
-      org.label-schema.build-date="" \
-      org.label-schema.schema-version=""
+      org.label-schema.build-date="2018-10-05T16:00:00.52Z" \
+      org.label-schema.schema-version="1.0"
 
 ENV EYP_POSTGRES_PUPPETDB_PASSWORD 769d147d725f3a3d356f99eda68ed5cd
 ENV EYP_PUPPETFQDN=puppet5

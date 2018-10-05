@@ -8,9 +8,10 @@ then
   exit 1
 fi
 
-if [ ! -d "./utils/puppet-masterless" ];
+if [ ! -d "./utils/puppet-masterless/.git" ];
 then
   cd "./utils"
+  rm -fr puppet-masterless
   git clone https://github.com/jordiprats/puppet-masterless
 else
   cd "./utils/puppet-masterless"
