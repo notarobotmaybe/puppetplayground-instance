@@ -43,9 +43,16 @@ fi
 
 sed "s/X_PUPPETDB_PASSWORD_X/${EYP_POSTGRES_PUPPETDB_PASSWORD}/g" -i /etc/puppetlabs/puppetdb/conf.d/database.ini
 
+IP_PUPPET_MASTER="$(dig puppet5.pm5.docker +short)"
+
+if [ ! -z "${IP_PUPPET_MASTER}" ];
+then
+  echo "${IP_PUPPET_MASTER} ${EYP_PUPPETFQDN}" >> /etc/hosts
+fi
+
 while [ ! -f "/etc/puppetlabs/puppet/ssl/certs/puppetdb.pm5.docker.pem" ];
 do
-  puppet agent --server puppet5 --masterport 8140 --certname puppetdb.pm5.docker --test
+  puppet agent --server ${EYP_PUPPETFQDN} --masterport 8140 --certname puppetdb.pm5.docker --test
   sleep 5
 done
 
