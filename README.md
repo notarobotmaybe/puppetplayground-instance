@@ -6,6 +6,8 @@ override example:
 version: "2.1"
 services:
   puppetdb:
+    ports:
+      - 8888:8081/tcp
     environment:
       EYP_PUPPETFQDN: 'puppet5.systemadmin.es'
       EYP_PUPPETDB_EXTERNAL_PORT: '9999'
