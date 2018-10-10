@@ -10,6 +10,8 @@ services:
       EYP_PUPPETFQDN: 'puppet5.systemadmin.es'
       EYP_PUPPETDB_EXTERNAL_PORT: '9999'
   puppetmaster:
+    ports:
+      - 9999:8140/tcp
     environment:
       EYP_PUPPETFQDN: 'puppet5.cm.nttcom.ms'
       EYP_PM_SSL_REPO: 'ssh://git@demo.repo.systemadmin.es/puppet/ssl.git'
