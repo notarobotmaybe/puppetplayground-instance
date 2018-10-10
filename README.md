@@ -2,6 +2,9 @@
 
 override example:
 
+* puppetdb public port: 8888 (not required)
+* puppetmaster public port: 9999
+
 ```yaml
 version: "2.1"
 services:
@@ -15,14 +18,14 @@ services:
     ports:
       - 9999:8140/tcp
     environment:
-      EYP_PUPPETFQDN: 'puppet5.cm.nttcom.ms'
+      EYP_PUPPETFQDN: 'puppet5.systemadmin.es'
       EYP_PM_SSL_REPO: 'ssh://git@demo.repo.systemadmin.es/puppet/ssl.git'
       EYP_PM_CUSTOMER_REPO: 'ssh://git@demo.repo.systemadmin.es/config/demo.git'
 ```
 
 ## puppet-bolt
 
-You need **eyp-eyplib**:
+You need **eyp-eyplib**, example usage:
 
 ```
 [root@31b68e9fbe3f ~]# bolt plan run eyplib::pdbtest
