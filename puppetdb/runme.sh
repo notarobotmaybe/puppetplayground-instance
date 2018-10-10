@@ -51,7 +51,7 @@ sed "s/X_PUPPETDB_PASSWORD_X/${EYP_POSTGRES_PUPPETDB_PASSWORD}/g" -i /etc/puppet
 
 while [ ! -f "/etc/puppetlabs/puppet/ssl/certs/puppetdb.pm5.docker.pem" ];
 do
-  puppet agent --server "${EYP_PUPPETFQDN}" --masterport 8140 --certname puppetdb.pm5.docker --test
+  puppet agent --server puppet5.pm5.docker --masterport 8140 --certname puppetdb.pm5.docker --test
   sleep 5
 done
 
