@@ -21,6 +21,8 @@ services:
       EYP_PUPPETFQDN: 'puppet5.systemadmin.es'
       EYP_PM_SSL_REPO: 'ssh://git@demo.repo.systemadmin.es/puppet/ssl.git'
       EYP_PM_CUSTOMER_REPO: 'ssh://git@demo.repo.systemadmin.es/config/demo.git'
+      EYP_ROBOT_EMAIL: 'robot@puppet5.pm5.docker'
+      EYP_ROBOT_NAME: 'Puppet Robot'
 ```
 
 ## puppet-bolt
