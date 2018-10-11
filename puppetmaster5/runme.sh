@@ -95,21 +95,20 @@ if [ -z "$(ls -A /etc/puppetlabs/puppet/.repo/ssl-repo)" ];
 then
   if [ ! -z "${EYP_PM_SSL_REPO}" ];
   then
+    echo "generating CA for ${EYP_PUPPETFQDN} for repo ${EYP_PM_SSL_REPO}"
+
     cd /etc/puppetlabs/puppet/.repo/ssl-repo
     git init
     git remote add origin ${EYP_PM_SSL_REPO}
     git pull origin master
 
-    if [ "$(find .git/objects -type f | wc -l)" -eq 0 ];
-    then
-      echo "generating CA for ${EYP_PUPPETFQDN} for repo ${EYP_PM_SSL_REPO}"
-      sed "s@\\bcertname[ ]*=.*\$@certname=${EYP_PUPPETFQDN}@" -i /etc/puppetlabs/puppet/puppet.conf
-      puppet_regenerate_ca
-      cd /etc/puppetlabs/puppet/.repo/ssl-repo
-      git add --all
-      git commit -va -m 'inicialitzacio'
-      git push origin master
-    fi
+    sed "s@\\bcertname[ ]*=.*\$@certname=${EYP_PUPPETFQDN}@" -i /etc/puppetlabs/puppet/puppet.conf
+    puppet_regenerate_ca
+    cd /etc/puppetlabs/puppet/.repo/ssl-repo
+    git add --all
+    git commit -va -m 'inicialitzacio'
+    git push origin master
+
   else
     echo "generating CA for ${EYP_PUPPETFQDN} without git repo"
     sed "s@\\bcertname[ ]*=.*\$@certname=${EYP_PUPPETFQDN}@" -i /etc/puppetlabs/puppet/puppet.conf
