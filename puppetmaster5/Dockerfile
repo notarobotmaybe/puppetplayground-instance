@@ -16,6 +16,9 @@ LABEL org.label-schema.vendor="" \
 ENV EYP_PUPPETFQDN=puppet5
 ENV HOME /root
 
+ENV EYP_ROBOT_EMAIL robot@puppet5.pm5.docker
+ENV EYP_ROBOT_NAME Puppet Robot
+
 RUN mkdir /root/.ssh
 RUN chmod 0700 /root/.ssh/
 

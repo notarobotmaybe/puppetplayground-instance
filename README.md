@@ -2,8 +2,20 @@
 
 override example:
 
+Published ports:
 * puppetdb public port: 8888 (not required)
 * puppetmaster public port: 9999
+
+Environment variables:
+* puppetdb
+  - EYP_PUPPETFQDN
+  - EYP_PUPPETDB_EXTERNAL_PORT
+* puppetmaster
+  - EYP_PUPPETFQDN
+  - EYP_PM_SSL_REPO
+  - EYP_PM_CUSTOMER_REPO
+  - EYP_ROBOT_EMAIL
+  - EYP_ROBOT_NAME
 
 ```yaml
 version: "2.1"
@@ -21,6 +33,8 @@ services:
       EYP_PUPPETFQDN: 'puppet5.systemadmin.es'
       EYP_PM_SSL_REPO: 'ssh://git@demo.repo.systemadmin.es/puppet/ssl.git'
       EYP_PM_CUSTOMER_REPO: 'ssh://git@demo.repo.systemadmin.es/config/demo.git'
+      EYP_ROBOT_EMAIL: 'robot@puppet5.pm5.docker'
+      EYP_ROBOT_NAME: 'Puppet Robot'
 ```
 
 ## puppet-bolt

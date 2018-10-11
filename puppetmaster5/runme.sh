@@ -86,6 +86,10 @@ then
              /etc/puppetlabs/pxp-agent
 fi
 
+git config --global user.email "${EYP_ROBOT_EMAIL}"
+git config --global user.name "${EYP_ROBOT_NAME}"
+
+
 mkdir -p /etc/puppetlabs/puppet/.repo/ssl-repo
 if [ -z "$(ls -A /etc/puppetlabs/puppet/.repo/ssl-repo)" ];
 then
