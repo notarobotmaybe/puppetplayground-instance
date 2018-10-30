@@ -18,4 +18,14 @@ else
   git pull origin master
 fi
 
+if [ ! -d "./utils/autocommit/.git" ];
+then
+  cd "./utils"
+  rm -fr autocommit
+  git clone https://github.com/jordiprats/autocommit
+else
+  cd "./utils/autocommit"
+  git pull origin master
+fi
+
 cd $CURRENT_WD
