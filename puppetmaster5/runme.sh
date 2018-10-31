@@ -113,9 +113,9 @@ then
         git commit -va -m 'inicialitzacio'
         git push origin master
       fi
-      
+
       # autocommit watcher
-      /opt/utils/autocommit/autocommit.sh -r /etc/puppetlabs/puppet/.repo/ssl-repo &
+      /opt/utils/autocommit/autocommit.sh -r /etc/puppetlabs/puppet/.repo/ssl-repo -p &
     fi
   else
     grep -Eo "certname=${EYP_PUPPETFQDN}\b" /etc/puppetlabs/puppet/puppet.conf > /dev/null 2>&1
