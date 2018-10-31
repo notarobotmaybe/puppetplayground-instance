@@ -102,18 +102,29 @@ then
 
     if [ "$(find .git/objects -type f | wc -l)" -eq 0 ];
     then
-      echo "generating CA for ${EYP_PUPPETFQDN} for repo ${EYP_PM_SSL_REPO}"
-      sed "s@\\bcertname[ ]*=.*\$@certname=${EYP_PUPPETFQDN}@" -i /etc/puppetlabs/puppet/puppet.conf
-      puppet_regenerate_ca
-      cd /etc/puppetlabs/puppet/.repo/ssl-repo
-      git add --all
-      git commit -va -m 'inicialitzacio'
-      git push origin master
+      grep -Eo "certname=${EYP_PUPPETFQDN}\b" /etc/puppetlabs/puppet/puppet.conf > /dev/null 2>&1
+      if [ $? -ne 0 ];
+      then
+        echo "generating CA for ${EYP_PUPPETFQDN} for repo ${EYP_PM_SSL_REPO}"
+        sed "s@\\bcertname[ ]*=.*\$@certname=${EYP_PUPPETFQDN}@" -i /etc/puppetlabs/puppet/puppet.conf
+        puppet_regenerate_ca
+        cd /etc/puppetlabs/puppet/.repo/ssl-repo
+        git add --all
+        git commit -va -m 'inicialitzacio'
+        git push origin master
+      fi
+
+      # autocommit watcher
+      /opt/utils/autocommit/autocommit.sh -r /etc/puppetlabs/puppet/.repo/ssl-repo -p &
     fi
   else
-    echo "generating CA for ${EYP_PUPPETFQDN} without git repo"
-    sed "s@\\bcertname[ ]*=.*\$@certname=${EYP_PUPPETFQDN}@" -i /etc/puppetlabs/puppet/puppet.conf
-    puppet_regenerate_ca
+    grep -Eo "certname=${EYP_PUPPETFQDN}\b" /etc/puppetlabs/puppet/puppet.conf > /dev/null 2>&1
+    if [ $? -ne 0 ];
+    then
+      echo "generating CA for ${EYP_PUPPETFQDN} without git repo"
+      sed "s@\\bcertname[ ]*=.*\$@certname=${EYP_PUPPETFQDN}@" -i /etc/puppetlabs/puppet/puppet.conf
+      puppet_regenerate_ca
+    fi
   fi
 fi
 

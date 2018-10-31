@@ -94,6 +94,10 @@ RUN mkdir -p /root/.bolt
 RUN mkdir -p /root/.puppetlabs/
 COPY bolt.yml /root/.puppetlabs/
 
+# git watcher
+
+RUN yum install inotify-tools -y
+
 EXPOSE 8140
 
 CMD /bin/bash /usr/local/bin/runme.sh
