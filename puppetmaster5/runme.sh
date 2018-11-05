@@ -164,7 +164,7 @@ then
     remote: ${EYP_PM_CUSTOMER_REPO}
     basedir: /etc/puppetlabs/code/environments
 EOF
-  /usr/local/bin/updatemodules.sh
+  /usr/local/bin/updatepuppet.sh
 fi
 
 # ps auxf | grep puppetserver | grep java | wc -l
