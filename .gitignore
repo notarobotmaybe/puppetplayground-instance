@@ -3,6 +3,7 @@
 docker-compose.override.yml
 ssh/id_*
 utils/puppet-masterless
+utils/autocommit
 elasticsearch/deb/*
 kibana/deb/*
 logstash/deb/*
