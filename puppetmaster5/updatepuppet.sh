@@ -46,6 +46,13 @@ puppet_check
 r10k_check
 
 echo "Updating puppet"
+if [ ! -z "${EYP_PM_FILES_REPO}" ];
+then
+  echo "updating files"
+  cd /var/puppet/files
+  git pull origin master
+  cd -
+fi
 echo "Deploying puppet modules"
 $R10KBIN deploy environment -p
 
