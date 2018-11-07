@@ -18,6 +18,8 @@ else
   git pull origin master
 fi
 
+cd $CURRENT_WD
+
 if [ ! -d "./utils/autocommit/.git" ];
 then
   cd "./utils"
