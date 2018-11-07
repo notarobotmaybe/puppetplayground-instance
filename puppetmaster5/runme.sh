@@ -167,6 +167,17 @@ EOF
   /usr/local/bin/updatepuppet.sh
 fi
 
+if [ ! -z "${EYP_PM_FILES_REPO}" ];
+then
+  mkdir -p /var/puppet/files
+  git clone "${EYP_PM_FILES_REPO}" /var/puppet/files
+  cat <<EOF > /etc/puppetlabs/puppet/fileserver.conf
+[files]
+  path /var/puppet/files
+  allow *
+EOF
+fi
+
 # ps auxf | grep puppetserver | grep java | wc -l
 if [ "$(ps auxf | grep puppetserver | grep java | wc -l)" -ne 1 ];
 then

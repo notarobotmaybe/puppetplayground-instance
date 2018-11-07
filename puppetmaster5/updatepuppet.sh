@@ -46,6 +46,9 @@ puppet_check
 r10k_check
 
 echo "Updating puppet"
+echo "updating files"
+cd /var/puppet/files
+git pull origin master
 echo "Deploying puppet modules"
 $R10KBIN deploy environment -p
 
