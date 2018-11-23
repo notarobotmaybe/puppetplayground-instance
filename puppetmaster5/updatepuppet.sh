@@ -68,3 +68,5 @@ do
   echo "Dependencies installed"
 
 done
+
+$PUPPETBIN module list
