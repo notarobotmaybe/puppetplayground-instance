@@ -163,6 +163,15 @@ then
   :local:
     remote: ${EYP_PM_CUSTOMER_REPO}
     basedir: /etc/puppetlabs/code/environments
+    ignore_branch_prefixes:
+      - chg
+      - chG
+      - cHg
+      - cHG
+      - Chg
+      - ChG
+      - CHg
+      - CHG
 EOF
   /usr/local/bin/updatepuppet.sh
 fi
