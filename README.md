@@ -89,10 +89,33 @@ Ran on 0 nodes in 0.00 seconds
 
 ## testing puppetdb API
 
+### list nodes
+
 ```
-[root@9ce853ab751c /]# curl -X GET https://puppetdb.pm5.docker:8081/pdb/query/v4 --data-urlencode 'query=nodes[certname] {}' --cert /etc/puppetlabs/puppet/ssl/certs/9ce853ab751c.nttcom.ms.local.pem --key //etc/puppetlabs/puppetdb/ssl/private.pem --cacert //etc/puppetlabs/puppetdb/ssl/ca.pem
-[{"certname":"centos7.vm"}][root@9ce853ab751c /]#
+[root@9494992ca5c4 /]# curl -X GET https://puppetdb.pm5.docker:8081/pdb/query/v4 --data-urlencode 'query=nodes[certname] {}' --cert /etc/puppetlabs/puppet/ssl/certs/9494992ca5c4.cm.nttcom.ms.pem --key //etc/puppetlabs/puppetdb/ssl/private.pem --cacert //etc/puppetlabs/puppetdb/ssl/ca.pem | python -mjson.tool
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+100   430  100   396  100    34   1937    166 --:--:-- --:--:-- --:--:--  1941
+[
+    {
+        "certname": "42nlgjqe2h2eredm4ifjwqngvg.bx.internal"
+    },
+    {
+        "certname": "0bnu1a0friuufjogmzwkyito3a.ax.internal"
+    },
+    {
+        "certname": "0bnu1a0friuufjogmzwkyito3a.ax.internal"
+    },
+    {
+        "certname": "42nlgjqe2h2eredm4ifjwqngvg.bx.internal"
+    },
+    {
+        "certname": "uolnwlaen5fexd5mxxqszeqnah.ix.internal"
+    }
+]
 ```
+
+### node details
 
 ```
 [root@9494992ca5c4 /]# curl -X GET https://puppetdb.pm5.docker:8081/pdb/query/v4/nodes --cert /etc/puppetlabs/puppet/ssl/certs/9494992ca5c4.cm.nttcom.ms.pem --key //etc/puppetlabs/puppetdb/ssl/private.pem --cacert //etc/puppetlabs/puppetdb/ssl/ca.pem | python -mjson.tool
