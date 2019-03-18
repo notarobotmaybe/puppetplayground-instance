@@ -95,7 +95,7 @@ Ran on 0 nodes in 0.00 seconds
 ```
 
 ```
-curl -X GET https://puppetdb.pm5.docker:8081/pdb/query/v4/nodes --cert /etc/puppetlabs/puppet/ssl/certs/9494992ca5c4.cm.nttcom.ms.pem --key //etc/puppetlabs/puppetdb/ssl/private.pem --cacert //etc/puppetlabs/puppetdb/ssl/ca.pem | python -mjson.tool
+[root@9494992ca5c4 /]# curl -X GET https://puppetdb.pm5.docker:8081/pdb/query/v4/nodes --cert /etc/puppetlabs/puppet/ssl/certs/9494992ca5c4.cm.nttcom.ms.pem --key //etc/puppetlabs/puppetdb/ssl/private.pem --cacert //etc/puppetlabs/puppetdb/ssl/ca.pem | python -mjson.tool
   % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
                                  Dload  Upload   Total   Spent    Left  Speed
 100  3081  100  3081    0     0  16445      0 --:--:-- --:--:-- --:--:-- 16475
