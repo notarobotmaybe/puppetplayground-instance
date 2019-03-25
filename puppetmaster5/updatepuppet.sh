@@ -69,4 +69,22 @@ do
 
 done
 
+echo "Updating files repo"
+if [ ! -z "${EYP_PM_FILES_REPO}" ];
+then
+  if [ ! -d "/var/puppet/files/.git" ];
+  then
+    mkdir -p /var/puppet/files
+    git clone "${EYP_PM_FILES_REPO}" /var/puppet/files
+    cat <<EOF > /etc/puppetlabs/puppet/fileserver.conf
+[files]
+  path /var/puppet/files
+  allow *
+EOF
+  else
+    cd /var/puppet/files
+    git pull origin master
+fi
+
+echo "Module list"
 $PUPPETBIN module list
