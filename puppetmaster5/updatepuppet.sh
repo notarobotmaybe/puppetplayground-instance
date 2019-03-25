@@ -76,11 +76,16 @@ then
   then
     mkdir -p /var/puppet/files
     git clone "${EYP_PM_FILES_REPO}" /var/puppet/files
-    cat <<EOF > /etc/puppetlabs/puppet/fileserver.conf
+    
+    grep "/var/puppet/files" /etc/puppetlabs/puppet/fileserver.conf >/dev/null 2>&1
+    if [ "$?" -ne 0 ];
+    then
+      cat <<EOF > /etc/puppetlabs/puppet/fileserver.conf
 [files]
   path /var/puppet/files
   allow *
 EOF
+    fi
   else
     cd /var/puppet/files
     git pull origin master
