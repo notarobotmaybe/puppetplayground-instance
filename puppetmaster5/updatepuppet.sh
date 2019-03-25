@@ -76,7 +76,7 @@ then
   then
     mkdir -p /var/puppet/files
     git clone "${EYP_PM_FILES_REPO}" /var/puppet/files
-    
+
     grep "/var/puppet/files" /etc/puppetlabs/puppet/fileserver.conf >/dev/null 2>&1
     if [ "$?" -ne 0 ];
     then
@@ -89,6 +89,7 @@ EOF
   else
     cd /var/puppet/files
     git pull origin master
+  fi
 fi
 
 echo "Module list"
