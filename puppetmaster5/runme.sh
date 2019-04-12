@@ -127,7 +127,10 @@ then
     fi
   fi
 else
+  mv /etc/puppetlabs/puppet/ssl /etc/puppetlabs/puppet/ssl.$(date +%Y%m%d%H%M%s)
   sed "s@\\bcertname[ ]*=.*\$@certname=${EYP_PUPPETFQDN}@" -i /etc/puppetlabs/puppet/puppet.conf
+  chmod 0771 /etc/puppetlabs/puppet/.repo/ssl-repo
+  ln -s /etc/puppetlabs/puppet/.repo/ssl-repo /etc/puppetlabs/puppet/ssl
 fi
 
 if [ -z "$(ls -A /var/log/puppetlabs)" ];
