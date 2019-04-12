@@ -113,9 +113,6 @@ then
         git commit -va -m 'inicialitzacio'
         git push origin master
       fi
-
-      # autocommit watcher
-      /opt/utils/autocommit/autocommit.sh -r /etc/puppetlabs/puppet/.repo/ssl-repo -p &
     fi
   else
     grep -Eo "certname=${EYP_PUPPETFQDN}\b" /etc/puppetlabs/puppet/puppet.conf > /dev/null 2>&1
@@ -126,17 +123,16 @@ then
       puppet_regenerate_ca
     fi
   fi
-else
-  mv /etc/puppetlabs/puppet/ssl /etc/puppetlabs/puppet/ssl.$(date +%Y%m%d%H%M%s)
-  sed "s@\\bcertname[ ]*=.*\$@certname=${EYP_PUPPETFQDN}@" -i /etc/puppetlabs/puppet/puppet.conf
-  chmod 0771 /etc/puppetlabs/puppet/.repo/ssl-repo
-  ln -s /etc/puppetlabs/puppet/.repo/ssl-repo /etc/puppetlabs/puppet/ssl
-  mkdir -p /etc/puppetlabs/puppet/ssl/private
-  mkdir -p /etc/puppetlabs/puppet/ssl/certificate_requests
-  chmod 750 /etc/puppetlabs/puppet/ssl/private
-  chmod 640 /etc/puppetlabs/puppet/ssl/ca/ca_key.pem
-  chown puppet. /etc/puppetlabs/puppet/.repo/ssl-repo/ -R
 fi
+
+sed "s@\\bcertname[ ]*=.*\$@certname=${EYP_PUPPETFQDN}@" -i /etc/puppetlabs/puppet/puppet.conf
+mv /etc/puppetlabs/puppet/ssl /etc/puppetlabs/puppet/ssl.$(date +%Y%m%d%H%M%s)
+chmod 0771 /etc/puppetlabs/puppet/.repo/ssl-repo
+ln -s /etc/puppetlabs/puppet/.repo/ssl-repo /etc/puppetlabs/puppet/ssl
+chown puppet. /etc/puppetlabs/puppet/.repo/ssl-repo/ -R
+
+# autocommit watcher
+/opt/utils/autocommit/autocommit.sh -r /etc/puppetlabs/puppet/.repo/ssl-repo -p &
 
 if [ -z "$(ls -A /var/log/puppetlabs)" ];
 then
