@@ -131,6 +131,11 @@ else
   sed "s@\\bcertname[ ]*=.*\$@certname=${EYP_PUPPETFQDN}@" -i /etc/puppetlabs/puppet/puppet.conf
   chmod 0771 /etc/puppetlabs/puppet/.repo/ssl-repo
   ln -s /etc/puppetlabs/puppet/.repo/ssl-repo /etc/puppetlabs/puppet/ssl
+  mkdir -p /etc/puppetlabs/puppet/ssl/private
+  mkdir -p /etc/puppetlabs/puppet/ssl/certificate_requests
+  chmod 750 /etc/puppetlabs/puppet/ssl/private
+  chmod 640 /etc/puppetlabs/puppet/ssl/ca/ca_key.pem
+  chown puppet. /etc/puppetlabs/puppet/.repo/ssl-repo/ -R
 fi
 
 if [ -z "$(ls -A /var/log/puppetlabs)" ];
