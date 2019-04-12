@@ -126,6 +126,8 @@ then
       puppet_regenerate_ca
     fi
   fi
+else
+  sed "s@\\bcertname[ ]*=.*\$@certname=${EYP_PUPPETFQDN}@" -i /etc/puppetlabs/puppet/puppet.conf
 fi
 
 if [ -z "$(ls -A /var/log/puppetlabs)" ];
