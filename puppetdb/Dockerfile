@@ -45,7 +45,7 @@ RUN bash -c 'cd /opt; git clone https://github.com/jordiprats/puppet-masterless'
 #RUN rpm -Uvh https://yum.puppetlabs.com/puppet5/puppet5-release-el-7.noarch.rpm
 #RUN yum install puppet-agent -y
 #RUN /opt/puppetlabs/puppet/bin/gem install r10k
-RUN /opt/puppet-masterless/setup.sh
+RUN /bin/bash /opt/puppet-masterless/setup.sh
 
 #
 # postgres install
