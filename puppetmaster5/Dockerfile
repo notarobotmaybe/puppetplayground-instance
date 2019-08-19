@@ -10,7 +10,7 @@ LABEL org.label-schema.vendor="" \
       org.label-schema.version="5.5.6"\
       org.label-schema.vcs-url="https://github.com/NTTCom-MS/docker-puppetmaster5" \
       org.label-schema.vcs-ref="" \
-      org.label-schema.build-date="2018-10-05T16:00:00.52Z" \
+      org.label-schema.build-date="2019-08-19T16:00:00.52Z" \
       org.label-schema.schema-version="1.0"
 
 ENV EYP_PUPPETFQDN=puppet5
