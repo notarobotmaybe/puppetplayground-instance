@@ -1,4 +1,4 @@
-FROM voxpupuli/puppetboard
+FROM eyp/voxpopuli-puppetboard
 MAINTAINER Jordi Prats
 
 ENV EYP_PUPPETBOARD_PASSWORD="e382ff445aaf597f33f5ba43b94f5e6b"

@@ -35,6 +35,8 @@ services:
           - puppetboard
           - puppetboard.pm5.docker
     environment:
+      EYP_PUPPETBOARD_PASSWORD: 'e382ff445aaf597f33f5ba43b94f5e6b'
+    environment:
       PUPPETDB_HOST: puppetdb.pm5.docker
       PUPPETDB_PORT: 8081
       PUPPETDB_SSL_VERIFY: /etc/puppetlabs/puppet/ssl/puppetdb-ca.pem
