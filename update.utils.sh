@@ -10,7 +10,7 @@ then
   git checkout v0.3.0
 fi
 
-docker images | grep "eyp/voxpopuli-puppetboard" > /dev/null 2>&1
+docker images | grep "voxpupuli/puppetboard" > /dev/null 2>&1
 
 if [ $? -ne 0 ];
 then
