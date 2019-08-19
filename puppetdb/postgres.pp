@@ -1,9 +1,9 @@
 class { 'postgresql':
-  wal_level           => 'hot_standby',
-  max_wal_senders     => '3',
+  wal_level           => 'minimal',
+  max_wal_senders     => '0',
   checkpoint_segments => '8',
-  wal_keep_segments   => '8',
-  version             => '9.6',
+  wal_keep_segments   => '1',
+  version             => '11',
   manage_service      => false,
 }
 
