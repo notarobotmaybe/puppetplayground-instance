@@ -15,7 +15,7 @@ docker images | grep "eyp/voxpopuli-puppetboard" > /dev/null 2>&1
 if [ $? -ne 0 ];
 then
   cd "./puppetboard"
-  docker build -t eyp/voxpopuli-puppetboard .
+  docker build -t voxpupuli/puppetboard .
 fi
 
 cd $CURRENT_WD
