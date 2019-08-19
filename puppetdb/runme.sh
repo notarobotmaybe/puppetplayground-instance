@@ -1,14 +1,14 @@
 #!/bin/bash
 
-PGDATA=/var/lib/pgsql/9.6/data
+PGDATA=/var/lib/pgsql/11/data
 
-su - postgres -c "/usr/pgsql-9.6/bin/postmaster -D ${PGDATA}" &
+su - postgres -c "/usr/pgsql-11/bin/postmaster -D ${PGDATA}" &
 
 for i in $(seq 1 60);
 do
   sleep 1
 
-  /usr/pgsql-9.6/bin/pg_isready > /dev/null 2>&1
+  /usr/pgsql-11/bin/pg_isready > /dev/null 2>&1
 
   IS_READY=$?
 
