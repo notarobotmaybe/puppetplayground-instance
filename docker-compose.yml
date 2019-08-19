@@ -1,7 +1,7 @@
 version: "2.1"
 services:
   puppetdb:
-    image: eyp/puppetdb:5
+    image: eyp/puppetdb:51
     build: ./puppetdb/
     restart: always
     volumes:
@@ -21,7 +21,7 @@ services:
       timeout: 10s
       retries: 5
   puppetboard:
-    image: eyp/voxpopuli-puppetboard
+    image: eyp/voxpopuli-puppetboard:51
     build: puppetpanel
     restart: always
     depends_on:
@@ -51,7 +51,7 @@ services:
       timeout: 10s
       retries: 5
   puppetmaster:
-    image: eyp/pupppetmaster:5
+    image: eyp/pupppetmaster:51
     build: ./puppetmaster5
     restart: always
     depends_on:

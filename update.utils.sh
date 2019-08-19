@@ -10,12 +10,12 @@ then
   git checkout v0.3.0
 fi
 
-docker images | grep "voxpupuli/puppetboard" > /dev/null 2>&1
+docker images | grep "eyp/voxpopuli-puppetboard" > /dev/null 2>&1
 
 if [ $? -ne 0 ];
 then
   cd "./puppetboard"
-  docker build -t voxpupuli/puppetboard .
+  docker build -t eyp/voxpopuli-puppetboard .
 fi
 
 cd $CURRENT_WD
