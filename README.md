@@ -37,6 +37,21 @@ services:
       EYP_ROBOT_NAME: 'Puppet Robot'
 ```
 
+## build
+
+### utils
+
+```
+bash update.utils.sh
+```
+
+### voxpopuli/puppetboard
+
+```
+cd puppetboard
+docker build -t voxpupuli/puppetboard .
+```
+
 ## puppet-bolt
 
 You need **eyp-eyplib**, example usage:
