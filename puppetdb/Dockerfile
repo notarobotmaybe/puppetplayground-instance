@@ -70,5 +70,9 @@ COPY jetty.ini /etc/puppetlabs/puppetdb/conf.d/jetty.ini
 
 
 EXPOSE 8080
+EXPOSE 8081
+
+RUN mkdir -p /etc/puppetlabs/puppetdb/ssl
+RUN mkdir -p /etc/puppetlabs/puppet/ssl
 
 CMD /bin/bash /usr/local/bin/runme.sh

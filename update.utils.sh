@@ -2,6 +2,14 @@
 
 CURRENT_WD=$(pwd)
 
+# puppetboard - https://github.com/voxpupuli/puppetboard
+
+if [ ! -d './puppetboard/.git' ];
+then
+  git clone https://github.com/voxpupuli/puppetboard
+  git checkout v0.3.0
+fi
+
 if [ ! -d "./utils" ];
 then
   echo "utils directory not found"
