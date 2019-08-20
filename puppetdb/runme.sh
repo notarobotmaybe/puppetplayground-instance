@@ -55,7 +55,7 @@ do
   sleep 5
 done
 
-FQDN=$(puppet facts --render-as json | python -mjson.tool | grep fqdn | cut -f2 -d: | cut -f2 -d\" | head -n1)
+FQDN=$(puppet facts --render-as json | python -mjson.tool | grep fqdn | cut -f2 -d: | cut -f2 -d\" | head -n1 | tr [A-Z] [a-z])
 
 echo "FQDN: ${FQDN}"
 
