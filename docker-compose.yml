@@ -1,11 +1,12 @@
 version: "2.1"
 services:
   puppetdb:
-    image: eyp/puppetdb:5
+    image: eyp/puppetdb:51
     build: ./puppetdb/
     restart: always
     volumes:
       - puppetdb-data:/tmp/puppetdb
+      - ./puppet-ssl:/etc/puppetlabs/puppet/ssl:rw
     networks:
       pm5net:
         aliases:
@@ -19,8 +20,38 @@ services:
       interval: 30s
       timeout: 10s
       retries: 5
+  puppetboard:
+    image: eyp/voxpopuli-puppetboard:51
+    build: puppetpanel
+    restart: always
+    depends_on:
+      puppetdb:
+        condition: service_healthy
+    volumes:
+      - ./puppet-ssl:/etc/puppetlabs/puppet/ssl:rw
+    networks:
+      pm5net:
+        aliases:
+          - puppetboard
+          - puppetboard.pm5.docker
+    environment:
+      EYP_PUPPETBOARD_PASSWORD: 'e382ff445aaf597f33f5ba43b94f5e6b'
+    environment:
+      PUPPETDB_HOST: puppetdb.pm5.docker
+      PUPPETDB_PORT: 8081
+      PUPPETDB_SSL_VERIFY: /etc/puppetlabs/puppet/ssl/puppetdb-ca.pem
+      PUPPETDB_KEY: /etc/puppetlabs/puppet/ssl/private_keys/puppetdb.pm5.docker.pem
+      PUPPETDB_CERT: /etc/puppetlabs/puppet/ssl/certs/puppetdb-container.pem
+      INVENTORY_FACTS: 'Hostname,fqdn, IP Address,ipaddress'
+      ENABLE_CATALOG: 'True'
+      GRAPH_FACTS: 'architecture,puppetversion,osfamily'
+    healthcheck:
+      test: ["CMD", "/bin/true"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
   puppetmaster:
-    image: eyp/pupppetmaster:5
+    image: eyp/pupppetmaster:51
     build: ./puppetmaster5
     restart: always
     depends_on:

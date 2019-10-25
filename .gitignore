@@ -7,3 +7,4 @@ utils/autocommit
 elasticsearch/deb/*
 kibana/deb/*
 logstash/deb/*
+puppetboard/

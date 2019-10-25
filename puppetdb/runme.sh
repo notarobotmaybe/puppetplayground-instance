@@ -1,14 +1,14 @@
 #!/bin/bash
 
-PGDATA=/var/lib/pgsql/9.6/data
+PGDATA=/var/lib/pgsql/11/data
 
-su - postgres -c "/usr/pgsql-9.6/bin/postmaster -D ${PGDATA}" &
+su - postgres -c "/usr/pgsql-11/bin/postmaster -D ${PGDATA}" &
 
 for i in $(seq 1 60);
 do
   sleep 1
 
-  /usr/pgsql-9.6/bin/pg_isready > /dev/null 2>&1
+  /usr/pgsql-11/bin/pg_isready > /dev/null 2>&1
 
   IS_READY=$?
 
@@ -55,16 +55,17 @@ do
   sleep 5
 done
 
-FQDN=$(puppet facts --render-as json | python -mjson.tool | grep fqdn | cut -f2 -d: | cut -f2 -d\" | head -n1)
+FQDN=$(puppet facts --render-as json | python -mjson.tool | grep fqdn | cut -f2 -d: | cut -f2 -d\" | head -n1 | tr [A-Z] [a-z])
 
 echo "FQDN: ${FQDN}"
 
 ln -s /etc/puppetlabs/puppet/ssl/private_keys/puppetdb.pm5.docker.pem /etc/puppetlabs/puppet/ssl/private_keys/${FQDN}.pem
 ln -s /etc/puppetlabs/puppet/ssl/certs/puppetdb.pm5.docker.pem /etc/puppetlabs/puppet/ssl/certs/${FQDN}.pem
 
-ln -s /etc/puppetlabs/puppet/ssl /etc/puppetlabs/puppetdb/ssl
-
 puppetdb ssl-setup -f
+
+cp /etc/puppetlabs/puppetdb/ssl/ca.pem /etc/puppetlabs/puppet/ssl/puppetdb-ca.pem
+ln -s /etc/puppetlabs/puppet/ssl/certs/${FQDN}.pem /etc/puppetlabs/puppet/ssl/certs/puppetdb-container.pem
 
 #
 # puppetDB start

@@ -10,7 +10,7 @@ LABEL org.label-schema.vendor="" \
       org.label-schema.version="5.5.6"\
       org.label-schema.vcs-url="https://github.com/NTTCom-MS/docker-puppetmaster5" \
       org.label-schema.vcs-ref="" \
-      org.label-schema.build-date="2018-10-05T16:00:00.52Z" \
+      org.label-schema.build-date="2019-08-19T16:00:00.52Z" \
       org.label-schema.schema-version="1.0"
 
 ENV EYP_PUPPETFQDN=puppet5
@@ -34,6 +34,9 @@ RUN chmod +x /usr/local/bin/deploy.sh
 COPY updatepuppet.sh /usr/local/bin/
 RUN chmod +x /usr/local/bin/updatepuppet.sh
 COPY profiled_bolt.sh /etc/profile.d/bolt.sh
+
+COPY start_puppetmaster.sh /usr/local/bin/
+RUN chmod +x /usr/local/bin/start_puppetmaster.sh
 
 #
 # utils
@@ -97,6 +100,12 @@ COPY bolt.yml /root/.puppetlabs/
 # git watcher
 
 RUN yum install inotify-tools -y
+
+# supervisor
+
+RUN yum install supervidor -y
+RUN mkdir -p /etc/supervisor.d/
+COPY supervisor/autocommit.ini /etc/supervisor.d/
 
 EXPOSE 8140
 
