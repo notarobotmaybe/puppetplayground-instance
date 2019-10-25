@@ -106,6 +106,7 @@ RUN yum install inotify-tools -y
 RUN yum install supervisor -y
 RUN mkdir -p /etc/supervisor.d/
 COPY supervisor/autocommit.ini /etc/supervisor.d/
+COPY supervisor/puppetmaster.ini /etc/supervisor.d/
 
 EXPOSE 8140
 
