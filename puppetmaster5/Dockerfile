@@ -35,10 +35,14 @@ COPY updatepuppet.sh /usr/local/bin/
 RUN chmod +x /usr/local/bin/updatepuppet.sh
 COPY profiled_bolt.sh /etc/profile.d/bolt.sh
 
+COPY start_puppetmaster.sh /usr/local/bin/
+RUN chmod +x /usr/local/bin/start_puppetmaster.sh
+
 #
 # utils
 #
 RUN yum install openssl git -y
+RUN yum install supervidor -y
 
 #
 # puppet install
@@ -97,6 +101,9 @@ COPY bolt.yml /root/.puppetlabs/
 # git watcher
 
 RUN yum install inotify-tools -y
+
+RUN mkdir -p /etc/supervisor.d/
+COPY supervisor/autocommit.ini /etc/supervisor.d/
 
 EXPOSE 8140
 

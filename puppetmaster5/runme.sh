@@ -114,8 +114,8 @@ then
         git push origin master
       fi
 
-      # autocommit watcher
-      /opt/utils/autocommit/autocommit.sh -r /etc/puppetlabs/puppet/.repo/ssl-repo -p &
+      # enable autocommit
+      touch /etc/puppetlabs/puppet/.repo/ssl-repo/.autocommit.enabled
     fi
   else
     grep -Eo "certname=${EYP_PUPPETFQDN}\b" /etc/puppetlabs/puppet/puppet.conf > /dev/null 2>&1
@@ -192,8 +192,4 @@ then
 EOF
 fi
 
-# ps auxf | grep puppetserver | grep java | wc -l
-if [ "$(ps auxf | grep puppetserver | grep java | wc -l)" -ne 1 ];
-then
-  /opt/puppetlabs/server/apps/puppetserver/bin/puppetserver foreground
-fi
+exec /usr/bin/supervisord -c /etc/supervisord.conf -n
