@@ -42,7 +42,6 @@ RUN chmod +x /usr/local/bin/start_puppetmaster.sh
 # utils
 #
 RUN yum install openssl git -y
-RUN yum install supervidor -y
 
 #
 # puppet install
@@ -102,6 +101,9 @@ COPY bolt.yml /root/.puppetlabs/
 
 RUN yum install inotify-tools -y
 
+# supervisor
+
+RUN yum install supervidor -y
 RUN mkdir -p /etc/supervisor.d/
 COPY supervisor/autocommit.ini /etc/supervisor.d/
 
