@@ -103,7 +103,7 @@ RUN yum install inotify-tools -y
 
 # supervisor
 
-RUN yum install supervidor -y
+RUN yum install supervisor -y
 RUN mkdir -p /etc/supervisor.d/
 COPY supervisor/autocommit.ini /etc/supervisor.d/
 
