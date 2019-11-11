@@ -116,6 +116,11 @@ then
 
       # enable autocommit
       touch /etc/puppetlabs/puppet/.repo/ssl-repo/.autocommit.enabled
+    else
+      mv /etc/puppetlabs/puppet/ssl /etc/puppetlabs/puppet/ssl.$(date +%Y%m%d%H%M%s)
+      sed "s@\\bcertname[ ]*=.*\$@certname=${EYP_PUPPETFQDN}@" -i /etc/puppetlabs/puppet/puppet.conf
+      chmod 0771 /etc/puppetlabs/puppet/.repo/ssl-repo
+      ln -s /etc/puppetlabs/puppet/.repo/ssl-repo /etc/puppetlabs/puppet/ssl
     fi
   else
     grep -Eo "certname=${EYP_PUPPETFQDN}\b" /etc/puppetlabs/puppet/puppet.conf > /dev/null 2>&1
