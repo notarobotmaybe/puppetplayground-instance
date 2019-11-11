@@ -41,7 +41,7 @@ RUN chmod +x /usr/local/bin/start_puppetmaster.sh
 #
 # utils
 #
-RUN yum install openssl git -y
+RUN yum install openssl git cronie -y
 
 #
 # puppet install
@@ -107,7 +107,10 @@ RUN yum install supervisor -y
 COPY supervisor/supervisord.conf /etc/supervisord.conf
 RUN mkdir -p /etc/supervisord.d/
 COPY supervisor/autocommit.ini /etc/supervisord.d/
+COPY supervisor/crond.ini /etc/supervisord.d/
 COPY supervisor/puppetmaster.ini /etc/supervisord.d/
+
+COPY crond/root /var/spool/cron/
 
 EXPOSE 8140
 
