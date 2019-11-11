@@ -1,0 +1,2 @@
+0 * * * * find /opt/puppetlabs/server/data/puppetserver/reports -type f -mtime +24 -delete
+30 * * * * find /opt/puppetlabs/server/data/puppetserver/reports -type d -empty -mtime +48 -delete
