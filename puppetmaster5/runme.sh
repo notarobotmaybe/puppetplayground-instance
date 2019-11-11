@@ -116,11 +116,14 @@ then
 
       # enable autocommit
       touch /etc/puppetlabs/puppet/.repo/ssl-repo/.autocommit.enabled
+
+      chown puppet. /etc/puppetlabs/puppet/.repo/ssl-repo -R
     else
       # repo ssl clonat no esta buitl, no regenerem CA
       mv /etc/puppetlabs/puppet/ssl /etc/puppetlabs/puppet/ssl.$(date +%Y%m%d%H%M%s)
       sed "s@\\bcertname[ ]*=.*\$@certname=${EYP_PUPPETFQDN}@" -i /etc/puppetlabs/puppet/puppet.conf
       chmod 0771 /etc/puppetlabs/puppet/.repo/ssl-repo
+      chown puppet. /etc/puppetlabs/puppet/.repo/ssl-repo -R
       ln -s /etc/puppetlabs/puppet/.repo/ssl-repo /etc/puppetlabs/puppet/ssl
     fi
   else
@@ -136,6 +139,7 @@ else
   mv /etc/puppetlabs/puppet/ssl /etc/puppetlabs/puppet/ssl.$(date +%Y%m%d%H%M%s)
   sed "s@\\bcertname[ ]*=.*\$@certname=${EYP_PUPPETFQDN}@" -i /etc/puppetlabs/puppet/puppet.conf
   chmod 0771 /etc/puppetlabs/puppet/.repo/ssl-repo
+  chown puppet. /etc/puppetlabs/puppet/.repo/ssl-repo -R
   ln -s /etc/puppetlabs/puppet/.repo/ssl-repo /etc/puppetlabs/puppet/ssl
 fi
 
