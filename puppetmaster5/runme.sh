@@ -187,6 +187,14 @@ then
       - ChG
       - CHg
       - CHG
+      - PRJ
+      - PRj
+      - PrJ
+      - Prj
+      - pRJ
+      - pRj
+      - prJ
+      - prj
 EOF
   /usr/local/bin/updatepuppet.sh
 fi
