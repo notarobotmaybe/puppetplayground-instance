@@ -1,0 +1,19 @@
+version: "2.1"
+services:
+  puppetboard:
+    ports:
+      - 8241:80/tcp
+    environment:
+      EYP_PUPPETBOARD_PASSWORD: 'a4wwj4tfnh9v8h2'
+  puppetdb:
+    environment:
+      EYP_PUPPETFQDN: 'ec2-34-246-2-178.eu-west-1.compute.amazonaws.com'
+      EYP_PUPPETDB_EXTERNAL_PORT: '8240'
+  puppetmaster:
+    ports:
+      - 8240:8140/tcp
+    environment:
+      EYP_PUPPETFQDN: 'ec2-34-246-2-178.eu-west-1.compute.amazonaws.com'
+      EYP_PM_SSL_REPO: 'git@github.com:notarobotmaybe/puppetplayground-ssl.git'
+      EYP_PM_CUSTOMER_REPO: 'git@github.com:notarobotmaybe/puppetplayground-config.git'
+      EYP_PM_FILES_REPO: 'git@github.com:notarobotmaybe/puppetplayground-files.git'
