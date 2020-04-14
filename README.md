@@ -1,4 +1,4 @@
-# docker-puppetmaster5
+# playground
 
 override example:
 
